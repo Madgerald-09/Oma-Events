@@ -292,6 +292,55 @@ service cloud.firestore {
     }
 
     // ========================================================
+    // TALENT BOOKING REQUESTS
+    // ========================================================
+    match /bookingRequests/{requestId} {
+      allow create: if isAuthenticated()
+        && request.resource.data.customerId == request.auth.uid
+        && request.resource.data.keys().hasOnly([
+          'customerId', 'customerName', 'email', 'phone', 'talentId',
+          'talentName', 'talentCategory', 'eventType', 'date', 'startTime',
+          'duration', 'location', 'attendees', 'ageGroup', 'budget',
+          'description', 'requirements', 'reference', 'status', 'createdAt'
+        ])
+        && request.resource.data.keys().hasAll([
+          'customerId', 'customerName', 'email', 'phone', 'talentId',
+          'talentName', 'talentCategory', 'eventType', 'date', 'startTime',
+          'duration', 'location', 'attendees', 'budget', 'description',
+          'reference', 'status', 'createdAt'
+        ])
+        && request.resource.data.customerName is string
+        && request.resource.data.customerName.size() >= 2
+        && request.resource.data.email is string
+        && request.resource.data.email.size() <= 254
+        && request.resource.data.phone is string
+        && request.resource.data.phone.size() >= 7
+        && request.resource.data.talentId is string
+        && request.resource.data.talentName is string
+        && request.resource.data.talentCategory is string
+        && request.resource.data.eventType is string
+        && request.resource.data.date is string
+        && request.resource.data.startTime is string
+        && request.resource.data.duration is string
+        && request.resource.data.location is string
+        && request.resource.data.location.size() <= 140
+        && request.resource.data.attendees is int
+        && request.resource.data.attendees > 0
+        && request.resource.data.attendees <= 100000
+        && request.resource.data.budget is string
+        && request.resource.data.description is string
+        && request.resource.data.description.size() >= 20
+        && request.resource.data.description.size() <= 1200
+        && request.resource.data.reference is string
+        && request.resource.data.status == 'pending'
+        && request.resource.data.createdAt == request.time;
+
+      allow read: if isAuthenticated()
+        && (resource.data.customerId == request.auth.uid || isAdmin());
+      allow update, delete: if false;
+    }
+
+    // ========================================================
     // DEFAULT: DENY ALL OTHER ACCESS
     // ========================================================
     match /{document=**} {

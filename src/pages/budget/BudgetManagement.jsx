@@ -10,7 +10,7 @@ import {
   doc,
   serverTimestamp,
 } from "firebase/firestore";
-import { DollarSign, Plus, Trash2, Edit3, TrendingUp, TrendingDown, AlertTriangle, Upload } from "lucide-react";
+import { Plus, Trash2, Edit3, AlertTriangle } from "lucide-react";
 import DashboardLayout from "../../components/layout/DashboardLayout";
 import { auth, db } from "../../firebase/firebase";
 
@@ -31,10 +31,8 @@ export default function BudgetManagement() {
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [expenses, setExpenses] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [showAdd, setShowAdd] = useState(false);
   const [editingExpense, setEditingExpense] = useState(null);
-  const [activeTab, setActiveTab] = useState("overview");
   const [form, setForm] = useState({
     title: "",
     amount: "",
@@ -52,8 +50,7 @@ export default function BudgetManagement() {
     const unsub = onSnapshot(q, (snap) => {
       const list = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
       setEvents(list);
-      if (list.length > 0 && !selectedEvent) setSelectedEvent(list[0].id);
-      setLoading(false);
+      setSelectedEvent((current) => current ?? list[0]?.id ?? null);
     });
     return unsub;
   }, []);
@@ -113,7 +110,6 @@ export default function BudgetManagement() {
   const totalBudget = Number(currentEvent?.budget) || 0;
   const totalSpent = expenses.reduce((sum, e) => sum + (Number(e.amount) || 0), 0);
   const totalPending = expenses.filter((e) => e.status === "pending").reduce((sum, e) => sum + (Number(e.amount) || 0), 0);
-  const totalPaid = expenses.filter((e) => e.status === "paid").reduce((sum, e) => sum + (Number(e.amount) || 0), 0);
   const remaining = totalBudget - totalSpent;
   const budgetPercent = totalBudget > 0 ? Math.min((totalSpent / totalBudget) * 100, 100) : 0;
 

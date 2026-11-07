@@ -7,7 +7,7 @@ export default function LineChart({ data, title, lines = [] }) {
   ];
   const chartLines = lines.length > 0 ? lines : defaultLines;
 
-  const padding = { top: 20, right: 20, bottom: 30, left: 50 };
+  const padding = useMemo(() => ({ top: 20, right: 20, bottom: 30, left: 50 }), []);
   const width = 600;
   const height = 300;
   const chartWidth = width - padding.left - padding.right;
@@ -27,7 +27,6 @@ export default function LineChart({ data, title, lines = [] }) {
 
   const points = useMemo(() => {
     const x_step = chartWidth / (data.length - 1 || 1);
-    const y_step = chartHeight / maxValue || 1;
 
     return chartLines.map((line) => {
       const pathPoints = data.map((item, i) => {

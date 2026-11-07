@@ -10,7 +10,7 @@ import {
   doc,
   serverTimestamp,
 } from "firebase/firestore";
-import { Users, UserPlus, Trash2, Mail, Phone, CheckCircle, XCircle, Edit3, Search } from "lucide-react";
+import { Users, UserPlus, Trash2, CheckCircle, XCircle, Edit3, Search } from "lucide-react";
 import DashboardLayout from "../../components/layout/DashboardLayout";
 import { auth, db } from "../../firebase/firebase";
 
@@ -20,7 +20,6 @@ export default function GuestManagement() {
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [guests, setGuests] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [showAdd, setShowAdd] = useState(false);
   const [editingGuest, setEditingGuest] = useState(null);
@@ -41,10 +40,7 @@ export default function GuestManagement() {
     const unsub = onSnapshot(q, (snap) => {
       const list = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
       setEvents(list);
-      if (list.length > 0 && !selectedEvent) {
-        setSelectedEvent(list[0].id);
-      }
-      setLoading(false);
+      setSelectedEvent((current) => current ?? list[0]?.id ?? null);
     });
     return unsub;
   }, []);
