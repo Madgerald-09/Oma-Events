@@ -1,7 +1,13 @@
-import { useState, useRef, useEffect } from "react";
-import { MessageCircle, X, Send, Loader } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Loader, MessageCircle, Send, Sparkles, X } from "lucide-react";
 import { getAIResponse } from "../../services/geminiAPI";
 import "../styles/FloatingOmaAi.css";
+
+const suggestedPrompts = [
+  "Help me plan an event",
+  "Find a speaker",
+  "How do I set a budget?",
+];
 
 function buildPageContext() {
   if (typeof document === "undefined") return "";
@@ -15,8 +21,7 @@ function buildPageContext() {
     .map((node) => node.textContent?.trim())
     .filter(Boolean);
 
-  const uniqueContext = [...new Set([title, ...headings, ...stats])].join(" | ");
-  return uniqueContext.slice(0, 1200);
+  return [...new Set([title, ...headings, ...stats])].join(" | ").slice(0, 1200);
 }
 
 export default function FloatingOmaAi() {
@@ -24,152 +29,173 @@ export default function FloatingOmaAi() {
   const [messages, setMessages] = useState([
     {
       role: "ai",
-      text: "Hi! I'm OMA AI. I can answer questions about this dashboard, your events, booking data, and the marketplace. Ask me anything on the page.",
+      text: "Hey! I'm OMA, your event sidekick. I can help you find talent, plan your event, or make sense of your budget. What are you dreaming up?",
       timestamp: new Date(),
     },
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [hasNewMessage, setHasNewMessage] = useState(false);
   const messagesEndRef = useRef(null);
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
+  const inputRef = useRef(null);
+  const toggleRef = useRef(null);
 
   useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, isLoading]);
 
-  const handleSend = async () => {
-    if (!input.trim() || isLoading) {
-      return;
-    }
+  useEffect(() => {
+    if (isOpen) inputRef.current?.focus();
+  }, [isOpen]);
 
-    const userMessage = {
-      role: "user",
-      text: input,
-      timestamp: new Date(),
+  useEffect(() => {
+    if (!isOpen) return undefined;
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+        toggleRef.current?.focus();
+      }
     };
 
-    setMessages((prev) => [...prev, userMessage]);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen]);
+
+  const sendMessage = async (message) => {
+    const text = message.trim();
+    if (!text || isLoading) return;
+
+    setMessages((previous) => [
+      ...previous,
+      { role: "user", text, timestamp: new Date() },
+    ]);
     setInput("");
     setIsLoading(true);
 
     try {
-      const pageContext = buildPageContext();
-      const aiResponse = await getAIResponse(input, pageContext);
-      const aiMessage = {
-        role: "ai",
-        text: aiResponse,
-        timestamp: new Date(),
-      };
-      setMessages((prev) => [...prev, aiMessage]);
-
-      if (!isOpen) {
-        setHasNewMessage(true);
-      }
+      const response = await getAIResponse(text, buildPageContext());
+      setMessages((previous) => [
+        ...previous,
+        { role: "ai", text: response, timestamp: new Date() },
+      ]);
     } catch (error) {
-      console.error("Error getting AI response:", error);
-      const errorMessage = {
-        role: "ai",
-        text: "Sorry, I encountered an error. Please try again.",
-        timestamp: new Date(),
-      };
-      setMessages((prev) => [...prev, errorMessage]);
+      console.error("Error getting OMA AI response:", error);
+      setMessages((previous) => [
+        ...previous,
+        {
+          role: "ai",
+          text: "I couldn't connect just now. Please try again in a moment.",
+          timestamp: new Date(),
+        },
+      ]);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      handleSend();
-    }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    sendMessage(input);
   };
 
-  const toggleChat = () => {
-    setIsOpen(!isOpen);
-    if (!isOpen) {
-      setHasNewMessage(false);
-    }
+  const closeChat = () => {
+    setIsOpen(false);
+    toggleRef.current?.focus();
   };
+
+  const toggleChat = () => setIsOpen((open) => !open);
 
   return (
     <>
-      {/* Floating Button */}
       <button
-        className={`floating-oma-button ${isOpen ? "open" : ""} ${
-          hasNewMessage && !isOpen ? "new-message" : ""
-        }`}
+        ref={toggleRef}
+        className={`floating-oma-button ${isOpen ? "open" : ""}`}
         onClick={toggleChat}
-        title="OMA AI Assistant"
+        type="button"
+        aria-label={isOpen ? "Close OMA chat" : "Chat with OMA"}
+        aria-expanded={isOpen}
+        aria-controls="floating-oma-chat"
       >
-        <MessageCircle size={24} />
-        {hasNewMessage && !isOpen && <span className="notification-dot"></span>}
+        {isOpen ? <X size={21} aria-hidden="true" /> : <MessageCircle size={21} aria-hidden="true" />}
+        <span>{isOpen ? "Close" : "Ask OMA"}</span>
       </button>
 
-      {/* Chat Window */}
       {isOpen && (
-        <div className="floating-oma-container">
-          <div className="floating-oma-header">
-            <h3>OMA AI Assistant</h3>
+        <section
+          className="floating-oma-container"
+          id="floating-oma-chat"
+          aria-labelledby="floating-oma-title"
+        >
+          <header className="floating-oma-header">
+            <span className="floating-oma-avatar"><Sparkles size={18} aria-hidden="true" /></span>
+            <div className="floating-oma-heading">
+              <h2 id="floating-oma-title">OMA event sidekick</h2>
+              <span>Here for your next big moment</span>
+            </div>
             <button
-              onClick={toggleChat}
+              onClick={closeChat}
               className="close-button"
-              aria-label="Close chat"
+              type="button"
+              aria-label="Close OMA chat"
             >
-              <X size={20} />
+              <X size={19} aria-hidden="true" />
             </button>
-          </div>
+          </header>
 
-          <div className="floating-oma-messages">
+          <div className="floating-oma-messages" role="log" aria-live="polite" aria-relevant="additions">
             {messages.map((message, index) => (
               <div
-                key={index}
+                key={`${message.timestamp.getTime()}-${index}`}
                 className={`floating-message ${message.role}-message`}
               >
-                <div className="message-content">
-                  <p>{message.text}</p>
-                </div>
-                <span className="message-time">
-                  {message.timestamp.toLocaleTimeString([], {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
-                </span>
+                <div className="message-content"><p>{message.text}</p></div>
+                <time className="message-time" dateTime={message.timestamp.toISOString()} aria-hidden="true">
+                  {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                </time>
               </div>
             ))}
+            {messages.length === 1 && !isLoading && (
+              <div className="floating-oma-suggestions" role="group" aria-label="Try asking OMA">
+                {suggestedPrompts.map((prompt) => (
+                  <button key={prompt} type="button" onClick={() => sendMessage(prompt)}>
+                    {prompt}
+                  </button>
+                ))}
+              </div>
+            )}
             {isLoading && (
               <div className="floating-message ai-message loading">
                 <div className="message-content">
-                  <Loader size={16} className="spinner" />
-                  <p>Thinking...</p>
+                  <Loader size={16} className="spinner" aria-hidden="true" />
+                  <p>Putting the ideas together...</p>
                 </div>
               </div>
             )}
             <div ref={messagesEndRef} />
           </div>
 
-          <div className="floating-oma-input">
+          <form className="floating-oma-input" onSubmit={handleSubmit}>
+            <label className="floating-oma-sr-only" htmlFor="floating-oma-message">Message OMA</label>
             <input
+              ref={inputRef}
+              id="floating-oma-message"
               type="text"
-              placeholder="Tell me about your event..."
+              placeholder="Ask me anything about your event"
               value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyPress={handleKeyPress}
+              onChange={(event) => setInput(event.target.value)}
               disabled={isLoading}
+              autoComplete="off"
             />
             <button
-              onClick={handleSend}
+              type="submit"
               disabled={!input.trim() || isLoading}
               className="send-button"
+              aria-label="Send message"
             >
-              <Send size={18} />
+              <Send size={18} aria-hidden="true" />
             </button>
-          </div>
-        </div>
+          </form>
+        </section>
       )}
     </>
   );

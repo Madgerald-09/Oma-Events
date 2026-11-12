@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowDown, ArrowRight, ArrowUpRight, Check, ChevronRight, Play, Search, Sparkles } from "lucide-react";
+import { ArrowDown, ArrowRight, ArrowUpRight, Check, ChevronRight, Lightbulb, Mic2, Music2, Play, Search, Sparkles, Users } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import TalentSiteShell from "../../components/talent/TalentSiteShell";
 import TalentCard from "../../components/talent/TalentCard";
@@ -10,6 +10,13 @@ const steps = [
   { number: "01", title: "Find your people", text: "Explore talented performers by style, location and the kind of event you're planning." },
   { number: "02", title: "Share your brief", text: "Tell your shortlisted talent about your date, venue and vision. No guesswork." },
   { number: "03", title: "Make it happen", text: "Compare responses, ask questions and choose the right fit for your event." },
+];
+
+const eventVibes = [
+  { label: "Big ideas", category: "Tech Speakers", icon: Lightbulb },
+  { label: "Own the stage", category: "Conference Hosts", icon: Mic2 },
+  { label: "Good company", category: "Community Hosts", icon: Users },
+  { label: "Dance-floor energy", category: "Event DJs", icon: Music2 },
 ];
 
 function SearchPanel() {
@@ -54,6 +61,7 @@ function SearchPanel() {
 }
 
 export default function Home() {
+  const [selectedVibe, setSelectedVibe] = useState(eventVibes[0]);
   const featured = talentProfiles.filter((talent) => talent.featured).slice(0, 3);
 
   return (
@@ -84,6 +92,39 @@ export default function Home() {
             </div>
           </div>
           <a className="talent-scroll-cue" href="#categories"><ArrowDown size={15} /> Explore the experience</a>
+        </section>
+
+        <section className="talent-vibe-section" aria-labelledby="event-vibe-title">
+          <div className="talent-container talent-vibe-layout">
+            <div className="talent-vibe-copy">
+              <span className="talent-eyebrow"><Sparkles size={14} /> A little event inspiration</span>
+              <h2 id="event-vibe-title">What's your event's <span>energy?</span></h2>
+              <p>Pick a vibe. We'll point you toward the people who can bring it to life.</p>
+            </div>
+            <div className="talent-vibe-picker">
+              <div className="talent-vibe-options" role="group" aria-label="Choose your event vibe">
+                {eventVibes.map(({ label, category, icon: Icon }) => (
+                  <button
+                    className={`talent-vibe-option ${selectedVibe.label === label ? "is-selected" : ""}`}
+                    key={label}
+                    type="button"
+                    aria-pressed={selectedVibe.label === label}
+                    onClick={() => setSelectedVibe({ label, category })}
+                  >
+                    <Icon size={18} aria-hidden="true" />
+                    <span>{label}</span>
+                  </button>
+                ))}
+              </div>
+              <Link
+                className="talent-button talent-button-green talent-vibe-cta"
+                to={`/explore?category=${encodeURIComponent(selectedVibe.category)}`}
+                aria-live="polite"
+              >
+                Find {selectedVibe.category.toLowerCase()} <ArrowRight size={16} />
+              </Link>
+            </div>
+          </div>
         </section>
 
         <section className="talent-category-section" id="categories">

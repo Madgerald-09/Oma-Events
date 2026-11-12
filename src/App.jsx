@@ -40,14 +40,16 @@ import Vendors from "./pages/vendors";
 import Venues from "./pages/venues";
 import Clients from "./pages/clients";
 import Enterprise from "./pages/enterprise";
+import FloatingOmaAi from "./components/ui/FloatingOmaAi";
 
 function App() {
   const { onboardingCompleted, user } = useAuth();
   const authenticatedHome = user && !onboardingCompleted ? "/onboarding" : "/dashboard";
 
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
+    <>
+      <Routes>
+        <Route path="/" element={<Home />} />
       <Route path="/signup" element={user ? <Navigate to={authenticatedHome} replace /> : <Signup />} />
       <Route path="/login" element={user ? <Navigate to={authenticatedHome} replace /> : <Login />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -90,8 +92,10 @@ function App() {
       <Route path="/clients" element={<Clients />} />
       <Route path="/enterprise" element={<Enterprise />} />
 
-      <Route path="*" element={<Navigate to={user ? authenticatedHome : "/"} replace />} />
-    </Routes>
+        <Route path="*" element={<Navigate to={user ? authenticatedHome : "/"} replace />} />
+      </Routes>
+      <FloatingOmaAi />
+    </>
   );
 }
 

@@ -4,7 +4,6 @@ import { Loader, LogOut, Home } from "lucide-react";
 
 import { auth } from "../../firebase/firebase";
 import DashboardLayout from "../../components/layout/DashboardLayout";
-import FloatingOmaAi from "../../components/ui/FloatingOmaAi";
 import WeeklyAnalysis from "../../components/dashboard/WeeklyAnalysis";
 import NotificationsWidget from "../../components/dashboard/NotificationsWidget";
 import PieChart from "../../components/charts/PieChart";
@@ -177,7 +176,6 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <FloatingOmaAi />
     </DashboardLayout>
   );
 }

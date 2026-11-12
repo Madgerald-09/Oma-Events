@@ -21,7 +21,7 @@ export function TalentHeader() {
         <Link className="talent-brand" to="/" aria-label="Oma home">
           <img className="talent-brand-logo" src="/oma-logo.jpeg" alt="OMA Events logo" />
         </Link>
-        <nav className={`talent-nav ${menuOpen ? "is-open" : ""}`} aria-label="Main navigation">
+        <nav id="talent-primary-nav" className={`talent-nav ${menuOpen ? "is-open" : ""}`} aria-label="Main navigation">
           {links.map((link) => (
             <Link key={link.label} to={link.to} onClick={() => setMenuOpen(false)}>{link.label}</Link>
           ))}
@@ -38,6 +38,7 @@ export function TalentHeader() {
         <button
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
+          aria-controls="talent-primary-nav"
           className="talent-menu-toggle"
           onClick={() => setMenuOpen((open) => !open)}
           type="button"

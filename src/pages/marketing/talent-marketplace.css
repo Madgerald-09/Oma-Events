@@ -82,9 +82,9 @@
 
 .talent-brand-logo {
   display: block;
-  width: 186px;
+  width: 150px;
   max-width: 100%;
-  height: auto;
+  height: 54px;
   object-fit: contain;
   filter: drop-shadow(0 6px 14px rgba(23, 44, 34, 0.12));
 }
@@ -470,6 +470,85 @@
   font-size: 10px;
   font-weight: 600;
   text-decoration: none;
+}
+
+.talent-vibe-section {
+  padding: 40px 0;
+  border-bottom: 1px solid #e8e9e3;
+  background: #fff;
+}
+
+.talent-vibe-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 48px;
+}
+
+.talent-vibe-copy h2 {
+  margin: 11px 0 7px;
+  font-size: clamp(24px, 3vw, 33px);
+  font-weight: 700;
+  letter-spacing: -1.5px;
+  line-height: 1.2;
+}
+
+.talent-vibe-copy h2 span {
+  color: var(--oma-green);
+}
+
+.talent-vibe-copy p {
+  margin: 0;
+  color: var(--oma-muted);
+  font-size: 13px;
+}
+
+.talent-vibe-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.talent-vibe-option {
+  min-width: 0;
+  min-height: 48px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid #e2e8e0;
+  border-radius: 7px;
+  color: #43564a;
+  background: #fbfaf6;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: color 160ms ease, border-color 160ms ease, background 160ms ease, transform 160ms ease;
+}
+
+.talent-vibe-option:hover {
+  transform: translateY(-1px);
+  border-color: #9ab998;
+}
+
+.talent-vibe-option.is-selected {
+  border-color: var(--oma-green);
+  color: var(--oma-green-dark);
+  background: var(--oma-green-pale);
+  box-shadow: inset 0 0 0 1px var(--oma-green);
+}
+
+.talent-vibe-option svg {
+  flex: 0 0 auto;
+}
+
+.talent-vibe-cta {
+  min-height: 42px;
+  margin-top: 11px;
+  padding-inline: 16px;
+  font-size: 11px;
 }
 
 .talent-category-section,
@@ -2094,7 +2173,8 @@
   }
 
   .talent-brand-logo {
-    width: 138px;
+    width: 124px;
+    height: 48px;
   }
 
   .talent-nav-actions {
@@ -2149,6 +2229,27 @@
   .talent-hero-layout {
     grid-template-columns: 1fr;
     gap: 32px;
+  }
+
+  .talent-vibe-section {
+    padding: 35px 0;
+  }
+
+  .talent-vibe-layout {
+    grid-template-columns: 1fr;
+    gap: 19px;
+  }
+
+  .talent-vibe-copy h2 {
+    font-size: 27px;
+  }
+
+  .talent-vibe-copy p {
+    font-size: 12px;
+  }
+
+  .talent-vibe-cta {
+    width: 100%;
   }
 
   .talent-hero-copy {
