@@ -10,13 +10,12 @@ import {
   addDoc,
   serverTimestamp,
   arrayUnion,
-  arrayRemove,
-  getDocs,
 } from "firebase/firestore";
 import { Link } from "react-router-dom";
-import { Plus, Calendar, MapPin, Trash2, Edit3, Eye, CheckCircle, Clock, XCircle, Copy, ChevronDown } from "lucide-react";
+import { Plus, Calendar, MapPin, Trash2, Edit3, Eye, CheckCircle, Clock, XCircle, Copy } from "lucide-react";
 import DashboardLayout from "../../components/layout/DashboardLayout";
 import { auth, db } from "../../firebase/firebase";
+import "./EventList.css";
 
 const statusColors = {
   planning: "#fbbf24",
@@ -135,34 +134,26 @@ export default function EventList() {
 
   return (
     <DashboardLayout>
-      <div className="dashboard-page">
-        <div className="dashboard-topbar">
+      <div className="dashboard-page events-page">
+        <header className="events-page-header">
           <div className="dashboard-header">
             <div className="dashboard-badge">Events</div>
             <h1>Your Events</h1>
             <p>Manage, track, and execute all your events from one place.</p>
           </div>
-          <Link to="/events" className="auth-submit" style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "8px" }}>
+          <Link to="/events" className="auth-submit events-create-button">
             <Plus size={18} /> New Event
           </Link>
-        </div>
+        </header>
 
-        {/* Filter Bar */}
-        <div style={{ display: "flex", gap: "8px", marginBottom: "1.5rem", flexWrap: "wrap" }}>
+        <div className="events-filters" aria-label="Filter events by status">
           {["all", "planning", "in-progress", "completed", "cancelled"].map((s) => (
             <button
               key={s}
+              type="button"
+              className={`events-filter-button${filter === s ? " active" : ""}`}
               onClick={() => setFilter(s)}
-              style={{
-                padding: "6px 16px",
-                borderRadius: "8px",
-                border: filter === s ? "2px solid #fbbf24" : "1px solid rgba(0,0,0,0.15)",
-                background: filter === s ? "rgba(251,191,36,0.15)" : "rgba(0,0,0,0.05)",
-                color: "#000",
-                cursor: "pointer",
-                fontSize: "0.85rem",
-                textTransform: "capitalize",
-              }}
+              aria-pressed={filter === s}
             >
               {s === "all" ? "All" : s.replace("-", " ")}
             </button>
@@ -170,51 +161,55 @@ export default function EventList() {
         </div>
 
         {loading ? (
-          <p style={{ color: "rgba(0,0,0,0.5)", textAlign: "center", padding: "2rem" }}>Loading events...</p>
+          <p className="events-loading-message">Loading events...</p>
         ) : filtered.length === 0 ? (
-          <div style={{ textAlign: "center", padding: "3rem", color: "rgba(0,0,0,0.5)" }}>
-            <Calendar size={48} style={{ marginBottom: "1rem", opacity: 0.3 }} />
-            <p>No events found. <Link to="/events" style={{ color: "#fbbf24" }}>Create your first event</Link></p>
+          <div className="events-empty-state">
+            <span className="events-empty-icon"><Calendar size={25} aria-hidden="true" /></span>
+            <h2>{filter === "all" ? "No events yet" : `No ${filter.replace("-", " ")} events`}</h2>
+            <p>
+              {filter === "all"
+                ? "Your event plans will appear here once you create one."
+                : "Try another status filter or create an event to get started."}
+            </p>
+            <Link to="/events" className="events-empty-link">
+              <Plus size={16} aria-hidden="true" />
+              Create your first event
+            </Link>
           </div>
         ) : (
-          <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+          <div className="events-list">
             {filtered.map((event) => (
-              <div key={event.id} className="glass" style={{ padding: "1.25rem", borderRadius: "12px", borderLeft: `4px solid ${statusColors[event.status] || "#fbbf24"}` }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem" }}>
-                  <div style={{ flex: 1, minWidth: "200px" }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "4px" }}>
-                      <h3 style={{ color: "#000", fontSize: "1.1rem" }}>{event.title}</h3>
-                      <span style={{
-                        padding: "2px 10px",
-                        borderRadius: "20px",
-                        fontSize: "0.75rem",
-                        background: `${statusColors[event.status]}22`,
-                        color: statusColors[event.status],
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "4px",
-                      }}>
+              <article
+                key={event.id}
+                className="events-card"
+                style={{ "--status-color": statusColors[event.status] || "#fbbf24" }}
+              >
+                <div className="event-card-header">
+                  <div className="event-card-main">
+                    <div className="event-card-title-row">
+                      <h2 className="event-card-title">{event.title}</h2>
+                      <span className="event-status-badge">
                         {statusIcons[event.status]} {event.status?.replace("-", " ")}
                       </span>
                     </div>
-                    <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", color: "rgba(0,0,0,0.5)", fontSize: "0.85rem" }}>
-                      {event.date && <span><Calendar size={14} /> {event.date}</span>}
-                      {event.location && <span><MapPin size={14} /> {event.location}</span>}
+                    <div className="event-meta-list">
+                      {event.date && <span><Calendar size={14} aria-hidden="true" /> {event.date}</span>}
+                      {event.location && <span><MapPin size={14} aria-hidden="true" /> {event.location}</span>}
                       {event.budget > 0 && <span>₦{Number(event.budget).toLocaleString()}</span>}
                     </div>
                     {event.description && (
-                      <p style={{ color: "rgba(0,0,0,0.4)", fontSize: "0.85rem", marginTop: "6px" }}>
+                      <p className="event-description">
                         {event.description.slice(0, 120)}{event.description.length > 120 ? "..." : ""}
                       </p>
                     )}
                   </div>
 
-                  <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
-                    {/* Status dropdown */}
+                  <div className="event-card-actions">
                     <select
-                      value={event.status}
+                      className="event-status-select"
+                      value={event.status || "planning"}
                       onChange={(e) => handleStatusChange(event.id, e.target.value)}
-                      style={{ padding: "6px", borderRadius: "6px", background: "#ffffff", color: "#000", border: "1px solid rgba(0,0,0,0.15)", fontSize: "0.8rem" }}
+                      aria-label={`Change status for ${event.title}`}
                     >
                       <option value="planning">Planning</option>
                       <option value="in-progress">In Progress</option>
@@ -222,58 +217,55 @@ export default function EventList() {
                       <option value="cancelled">Cancelled</option>
                     </select>
 
-                    <button onClick={() => setEditingEvent(event)} title="Edit" style={{ padding: "6px", borderRadius: "6px", background: "rgba(251,191,36,0.15)", border: "none", color: "#fbbf24", cursor: "pointer" }}>
+                    <button className="event-action-button edit" onClick={() => setEditingEvent(event)} title="Edit" aria-label={`Edit ${event.title}`}>
                       <Edit3 size={16} />
                     </button>
-                    <button onClick={() => handleDuplicate(event)} title="Duplicate" style={{ padding: "6px", borderRadius: "6px", background: "rgba(59,130,246,0.15)", border: "none", color: "#3b82f6", cursor: "pointer" }}>
+                    <button className="event-action-button duplicate" onClick={() => handleDuplicate(event)} title="Duplicate" aria-label={`Duplicate ${event.title}`}>
                       <Copy size={16} />
                     </button>
-                    <button onClick={() => setShowChecklist(showChecklist === event.id ? null : event.id)} title="Checklist" style={{ padding: "6px", borderRadius: "6px", background: "rgba(34,197,94,0.15)", border: "none", color: "#22c55e", cursor: "pointer" }}>
+                    <button className="event-action-button checklist" onClick={() => setShowChecklist(showChecklist === event.id ? null : event.id)} title="Checklist" aria-label={`Toggle checklist for ${event.title}`}>
                       <CheckCircle size={16} />
                     </button>
-                    <button onClick={() => handleDelete(event.id)} title="Delete" style={{ padding: "6px", borderRadius: "6px", background: "rgba(239,68,68,0.15)", border: "none", color: "#ef4444", cursor: "pointer" }}>
+                    <button className="event-action-button delete" onClick={() => handleDelete(event.id)} title="Delete" aria-label={`Delete ${event.title}`}>
                       <Trash2 size={16} />
                     </button>
                   </div>
                 </div>
 
-                {/* Checklist & Tasks Panel */}
                 {showChecklist === event.id && (
-                  <div style={{ marginTop: "1rem", paddingTop: "1rem", borderTop: "1px solid rgba(0,0,0,0.1)" }}>
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem" }}>
-                      {/* Checklist */}
-                      <div>
-                        <h4 style={{ color: "#fbbf24", marginBottom: "8px", fontSize: "0.9rem" }}>Checklist</h4>
+                  <div className="event-checklist-panel">
+                    <div className="event-checklist-grid">
+                      <div className="event-checklist-section">
+                        <h3>Checklist</h3>
                         {(event.checklist || []).map((item, idx) => (
-                          <div key={idx} style={{ display: "flex", alignItems: "center", gap: "8px", padding: "4px 0" }}>
+                          <label className="event-check-row" key={idx}>
                             <input
                               type="checkbox"
                               checked={item.done}
                               onChange={() => handleToggleCheckItem(event.id, item)}
-                              style={{ accentColor: "#fbbf24" }}
                             />
-                            <span style={{ color: item.done ? "rgba(0,0,0,0.3)" : "#000", textDecoration: item.done ? "line-through" : "none", fontSize: "0.85rem" }}>
+                            <span className={item.done ? "done" : ""}>
                               {item.text}
                             </span>
-                          </div>
+                          </label>
                         ))}
-                        <div style={{ display: "flex", gap: "6px", marginTop: "8px" }}>
+                        <div className="event-add-row">
                           <input
+                            className="event-add-input"
                             value={newCheckItem}
                             onChange={(e) => setNewCheckItem(e.target.value)}
                             onKeyDown={(e) => e.key === "Enter" && handleAddCheckItem(event.id)}
                             placeholder="Add item..."
-                            style={{ flex: 1, padding: "6px 10px", borderRadius: "6px", background: "rgba(0,0,0,0.05)", border: "1px solid rgba(0,0,0,0.15)", color: "#000", fontSize: "0.85rem" }}
+                            aria-label="New checklist item"
                           />
-                          <button onClick={() => handleAddCheckItem(event.id)} style={{ padding: "6px 12px", borderRadius: "6px", background: "#fbbf24", color: "#000", border: "none", cursor: "pointer", fontWeight: 600 }}>+</button>
+                          <button type="button" onClick={() => handleAddCheckItem(event.id)} aria-label="Add checklist item">+</button>
                         </div>
                       </div>
 
-                      {/* Tasks */}
-                      <div>
-                        <h4 style={{ color: "#fbbf24", marginBottom: "8px", fontSize: "0.9rem" }}>Tasks</h4>
+                      <div className="event-checklist-section">
+                        <h3>Tasks</h3>
                         {(event.tasks || []).map((item, idx) => (
-                          <div key={idx} style={{ display: "flex", alignItems: "center", gap: "8px", padding: "4px 0" }}>
+                          <label className="event-check-row" key={idx}>
                             <input
                               type="checkbox"
                               checked={item.done}
@@ -281,36 +273,35 @@ export default function EventList() {
                                 const updated = (event.tasks || []).map((t) => t.id === item.id ? { ...t, done: !t.done } : t);
                                 await updateDoc(doc(db, "events", event.id), { tasks: updated, updatedAt: serverTimestamp() });
                               }}
-                              style={{ accentColor: "#fbbf24" }}
                             />
-                            <span style={{ color: item.done ? "rgba(0,0,0,0.3)" : "#000", textDecoration: item.done ? "line-through" : "none", fontSize: "0.85rem" }}>
+                            <span className={item.done ? "done" : ""}>
                               {item.text}
                             </span>
-                          </div>
+                          </label>
                         ))}
-                        <div style={{ display: "flex", gap: "6px", marginTop: "8px" }}>
+                        <div className="event-add-row">
                           <input
+                            className="event-add-input"
                             value={newTask}
                             onChange={(e) => setNewTask(e.target.value)}
                             onKeyDown={(e) => e.key === "Enter" && handleAddTask(event.id)}
                             placeholder="Add task..."
-                            style={{ flex: 1, padding: "6px 10px", borderRadius: "6px", background: "rgba(0,0,0,0.05)", border: "1px solid rgba(0,0,0,0.15)", color: "#000", fontSize: "0.85rem" }}
+                            aria-label="New task"
                           />
-                          <button onClick={() => handleAddTask(event.id)} style={{ padding: "6px 12px", borderRadius: "6px", background: "#fbbf24", color: "#000", border: "none", cursor: "pointer", fontWeight: 600 }}>+</button>
+                          <button type="button" onClick={() => handleAddTask(event.id)} aria-label="Add task">+</button>
                         </div>
                       </div>
                     </div>
                   </div>
                 )}
-              </div>
+              </article>
             ))}
           </div>
         )}
 
-        {/* Edit Modal */}
         {editingEvent && (
-          <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.7)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 1000, padding: "1rem" }}>
-            <form onSubmit={handleUpdateEvent} className="glass" style={{ padding: "2rem", borderRadius: "16px", width: "100%", maxWidth: "500px", maxHeight: "90vh", overflow: "auto" }}>
+          <div className="event-edit-backdrop">
+            <form onSubmit={handleUpdateEvent} className="glass event-edit-form">
               <h3 style={{ color: "#fbbf24", marginBottom: "1rem" }}>Edit Event</h3>
               <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                 <input className="auth-input" placeholder="Title" value={editingEvent.title} onChange={(e) => setEditingEvent({ ...editingEvent, title: e.target.value })} />
@@ -330,7 +321,7 @@ export default function EventList() {
               </div>
               <div style={{ display: "flex", gap: "10px", marginTop: "1rem" }}>
                 <button type="submit" className="auth-submit" style={{ flex: 1 }}>Save Changes</button>
-                <button type="button" onClick={() => setEditingEvent(null)} style={{ flex: 1, padding: "10px", borderRadius: "8px", background: "rgba(0,0,0,0.1)", color: "#000", border: "none", cursor: "pointer" }}>Cancel</button>
+                <button type="button" className="event-edit-cancel" onClick={() => setEditingEvent(null)}>Cancel</button>
               </div>
             </form>
           </div>

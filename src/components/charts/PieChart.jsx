@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 
 export default function PieChart({ data, title, colors = [] }) {
   const defaultColors = ["#4a7ba7", "#c5c5c5", "#fbbf24"];
@@ -7,6 +7,8 @@ export default function PieChart({ data, title, colors = [] }) {
   const total = useMemo(() => data.reduce((sum, item) => sum + item.value, 0), [data]);
 
   const slices = useMemo(() => {
+    if (total <= 0) return [];
+
     let currentAngle = -90;
     return data.map((item, index) => {
       const sliceAngle = (item.value / total) * 360;
@@ -43,27 +45,31 @@ export default function PieChart({ data, title, colors = [] }) {
   return (
     <div className="pie-chart-container">
       {title && <h3 className="chart-title">{title}</h3>}
-      <div className="pie-chart-wrapper">
-        <svg viewBox="0 0 100 100" className="pie-chart-svg">
-          {slices.map((slice, index) => (
-            <path key={index} d={slice.path} fill={slice.color} />
-          ))}
-        </svg>
-        <div className="pie-chart-legend">
-          {slices.map((slice, index) => (
-            <div key={index} className="legend-item">
-              <div
-                className="legend-color"
-                style={{ backgroundColor: slice.color }}
-              />
-              <div className="legend-text">
-                <span className="legend-label">{slice.label}</span>
-                <span className="legend-value">{slice.percentage}%</span>
+      {slices.length > 0 ? (
+        <div className="pie-chart-wrapper">
+          <svg viewBox="0 0 100 100" className="pie-chart-svg">
+            {slices.map((slice, index) => (
+              <path key={index} d={slice.path} fill={slice.color} />
+            ))}
+          </svg>
+          <div className="pie-chart-legend">
+            {slices.map((slice, index) => (
+              <div key={index} className="legend-item">
+                <div
+                  className="legend-color"
+                  style={{ backgroundColor: slice.color }}
+                />
+                <div className="legend-text">
+                  <span className="legend-label">{slice.label}</span>
+                  <span className="legend-value">{slice.percentage}%</span>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
+      ) : (
+        <p className="pie-chart-empty">No event data yet. Your breakdown will appear here.</p>
+      )}
     </div>
   );
 }

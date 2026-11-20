@@ -602,6 +602,55 @@
 
 /* MOBILE */
 
+html[data-theme="dark"] .planner-page,
+html[data-theme="dark"] .planner-page .planner-hero,
+html[data-theme="dark"] .planner-page .section,
+html[data-theme="dark"] .planner-page .split-section {
+  color: #f5f2e9;
+  background: #090909;
+}
+
+html[data-theme="dark"] .planner-page .planner-title,
+html[data-theme="dark"] .planner-page .planner-text,
+html[data-theme="dark"] .planner-page .planner-stat p,
+html[data-theme="dark"] .planner-page .section-title,
+html[data-theme="dark"] .planner-page .section-desc,
+html[data-theme="dark"] .planner-page .feature-title,
+html[data-theme="dark"] .planner-page .feature-text,
+html[data-theme="dark"] .planner-page .problem-text,
+html[data-theme="dark"] .planner-page .btn-secondary {
+  color: #f5f2e9;
+}
+
+html[data-theme="dark"] .planner-page .btn-secondary {
+  background: #151515;
+}
+
+html[data-theme="dark"] .planner-page .planner-card,
+html[data-theme="dark"] .planner-page .planner-metric,
+html[data-theme="dark"] .planner-page .feature-card,
+html[data-theme="dark"] .planner-page .problem-item {
+  color: #f5f2e9;
+  background: #151515;
+  border-color: rgba(251, 191, 36, 0.45);
+}
+
+html[data-theme="dark"] .planner-page .planner-card-top h3,
+html[data-theme="dark"] .planner-page .planner-metric h2,
+html[data-theme="dark"] .planner-page .planner-metric p {
+  color: #f5f2e9;
+}
+
+html[data-theme="dark"] .planner-page .feature-icon-box {
+  color: #fbbf24;
+  background: #000;
+}
+
+html[data-theme="dark"] .planner-page .section-eyebrow,
+html[data-theme="dark"] .planner-page .planner-badge {
+  background: #151515;
+}
+
 @media(max-width:992px){
 
   .planner-hero-grid{
@@ -654,5 +703,44 @@
 
   .cta-desc {
     font-size:1rem;
+  }
+}
+
+html[data-theme="light"] .planner-page,
+html[data-theme="light"] .planner-page .planner-hero,
+html[data-theme="light"] .planner-page .section {
+  color: #000;
+  background: #fff;
+}
+
+html[data-theme="light"] .planner-page .split-section {
+  background: #fffbeb;
+}
+
+@media (max-width: 640px) {
+  .planner-hero-grid,
+  .planner-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .planner-hero {
+    min-height: auto;
+    padding-inline: 1rem;
+  }
+
+  .planner-stats {
+    gap: 1.25rem;
+  }
+
+  .planner-card {
+    padding: 1.25rem;
+  }
+
+  .feature-card {
+    padding: 1.5rem;
+  }
+
+  .solution-panel {
+    padding: 1.5rem;
   }
 }

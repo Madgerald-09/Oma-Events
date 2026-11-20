@@ -16,14 +16,17 @@ import {
   Heart,
   Crown,
   Shield,
-  Megaphone,
-  Settings,
+  Menu,
+  X,
 } from "lucide-react";
 
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import ThemeToggle from "../ui/ThemeToggle";
 
 export default function Sidebar() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user, onboardingCompleted, role } = useAuth();
   const homePath = user
     ? onboardingCompleted
@@ -39,6 +42,8 @@ export default function Sidebar() {
     { title: "Guests", icon: <Users size={20} />, path: "/guests" },
     { title: "Budget", icon: <DollarSign size={20} />, path: "/budget" },
   ];
+
+  const mobileLinks = [mainLinks[0], mainLinks[1], mainLinks[3], mainLinks[4]];
 
   const marketplaceLinks = [
     { title: "Vendor Marketplace", icon: <Store size={20} />, path: "/marketplace" },
@@ -78,6 +83,7 @@ export default function Sidebar() {
         className={({ isActive }) =>
           `sidebar-link${isActive ? " active" : ""}`
         }
+        onClick={() => setMobileMenuOpen(false)}
       >
         {link.icon}
         <span>{link.title}</span>
@@ -85,59 +91,110 @@ export default function Sidebar() {
     ));
 
   return (
-    <aside className="sidebar">
-      <NavLink to={homePath} className="sidebar-logo">
-        OMA
-      </NavLink>
-
-      <div className="sidebar-links">
-        {renderLinkGroup(mainLinks)}
-
-        <div style={{ padding: "8px 12px 4px", marginTop: "8px" }}>
-          <span style={{ color: "rgba(255,255,255,0.25)", fontSize: "0.65rem", textTransform: "uppercase", letterSpacing: "1px" }}>Marketplace</span>
+    <>
+      <header className="dashboard-mobile-topbar">
+        <NavLink to={homePath} className="dashboard-mobile-brand">OMA</NavLink>
+        <div className="dashboard-mobile-tools">
+          <ThemeToggle className="mobile-dashboard-theme-toggle" />
+          <button
+            className="dashboard-mobile-menu-button"
+            type="button"
+            onClick={() => setMobileMenuOpen((open) => !open)}
+            aria-label={mobileMenuOpen ? "Close navigation" : "Open navigation"}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="dashboard-sidebar"
+          >
+            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
         </div>
-        {renderLinkGroup(marketplaceLinks)}
+      </header>
 
-        <div style={{ padding: "8px 12px 4px", marginTop: "8px" }}>
-          <span style={{ color: "rgba(255,255,255,0.25)", fontSize: "0.65rem", textTransform: "uppercase", letterSpacing: "1px" }}>Communication</span>
+      {mobileMenuOpen && (
+        <button
+          className="dashboard-sidebar-backdrop"
+          type="button"
+          onClick={() => setMobileMenuOpen(false)}
+          aria-label="Close navigation"
+        />
+      )}
+
+      <aside className={`sidebar${mobileMenuOpen ? " mobile-open" : ""}`} id="dashboard-sidebar">
+        <div className="sidebar-mobile-header">
+          <NavLink to={homePath} className="sidebar-logo" onClick={() => setMobileMenuOpen(false)}>
+            OMA
+          </NavLink>
+          <button
+            className="sidebar-close-button"
+            type="button"
+            onClick={() => setMobileMenuOpen(false)}
+            aria-label="Close navigation"
+          >
+            <X size={19} />
+          </button>
         </div>
-        {renderLinkGroup(communicationLinks)}
+        <ThemeToggle className="sidebar-theme-toggle" />
 
-        <div style={{ padding: "8px 12px 4px", marginTop: "8px" }}>
-          <span style={{ color: "rgba(255,255,255,0.25)", fontSize: "0.65rem", textTransform: "uppercase", letterSpacing: "1px" }}>Finance</span>
+        <div className="sidebar-links">
+          {renderLinkGroup(mainLinks)}
+
+          <div className="sidebar-section-label">Marketplace</div>
+          {renderLinkGroup(marketplaceLinks)}
+
+          <div className="sidebar-section-label">Communication</div>
+          {renderLinkGroup(communicationLinks)}
+
+          <div className="sidebar-section-label">Finance</div>
+          {renderLinkGroup(financeLinks)}
+
+          <div className="sidebar-section-label">Platform</div>
+          {renderLinkGroup(platformLinks)}
+
+          {adminLinks.length > 0 && (
+            <>
+              <div className="sidebar-section-label">Admin</div>
+              {renderLinkGroup(adminLinks)}
+            </>
+          )}
+
+          {enterpriseLinks.length > 0 && (
+            <>
+              <div className="sidebar-section-label">Enterprise</div>
+              {renderLinkGroup(enterpriseLinks)}
+            </>
+          )}
         </div>
-        {renderLinkGroup(financeLinks)}
 
-        <div style={{ padding: "8px 12px 4px", marginTop: "8px" }}>
-          <span style={{ color: "rgba(255,255,255,0.25)", fontSize: "0.65rem", textTransform: "uppercase", letterSpacing: "1px" }}>Platform</span>
+        <div className="sidebar-footer">
+          <NavLink to={homePath} className="sidebar-link sidebar-home-link" onClick={() => setMobileMenuOpen(false)}>
+            <House size={20} />
+            <span>Back Home</span>
+          </NavLink>
         </div>
-        {renderLinkGroup(platformLinks)}
+      </aside>
 
-        {adminLinks.length > 0 && (
-          <>
-            <div style={{ padding: "8px 12px 4px", marginTop: "8px" }}>
-              <span style={{ color: "rgba(255,255,255,0.25)", fontSize: "0.65rem", textTransform: "uppercase", letterSpacing: "1px" }}>Admin</span>
-            </div>
-            {renderLinkGroup(adminLinks)}
-          </>
-        )}
-
-        {enterpriseLinks.length > 0 && (
-          <>
-            <div style={{ padding: "8px 12px 4px", marginTop: "8px" }}>
-              <span style={{ color: "rgba(255,255,255,0.25)", fontSize: "0.65rem", textTransform: "uppercase", letterSpacing: "1px" }}>Enterprise</span>
-            </div>
-            {renderLinkGroup(enterpriseLinks)}
-          </>
-        )}
-      </div>
-
-      <div className="sidebar-footer">
-        <NavLink to={homePath} className="sidebar-link sidebar-home-link">
-          <House size={20} />
-          <span>Back Home</span>
-        </NavLink>
-      </div>
-    </aside>
+      <nav className="dashboard-mobile-nav" aria-label="Dashboard navigation">
+        {mobileLinks.map((link, index) => (
+          <NavLink
+            key={link.path}
+            to={link.path}
+            end={index === 0}
+            className={({ isActive }) => `dashboard-mobile-nav-link${isActive ? " active" : ""}`}
+          >
+            {link.icon}
+            <span>{index === 0 ? "Home" : link.title}</span>
+          </NavLink>
+        ))}
+        <button
+          className={`dashboard-mobile-nav-link${mobileMenuOpen ? " active" : ""}`}
+          type="button"
+          onClick={() => setMobileMenuOpen((open) => !open)}
+          aria-expanded={mobileMenuOpen}
+          aria-controls="dashboard-sidebar"
+        >
+          {mobileMenuOpen ? <X size={19} /> : <Menu size={19} />}
+          <span>More</span>
+        </button>
+      </nav>
+    </>
   );
 }

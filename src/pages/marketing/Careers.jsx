@@ -18,7 +18,7 @@ const benefits = [
 
 export default function Careers() {
   return (
-    <div style={{ background: "#000", color: "#000", minHeight: "100vh" }}>
+    <div className="legacy-marketing-page" style={{ background: "#000", color: "#000", minHeight: "100vh" }}>
       <section style={{ padding: "120px 20px 60px", maxWidth: "1000px", margin: "0 auto", textAlign: "center" }}>
         <h1 style={{ fontSize: "3rem", fontWeight: 800, marginBottom: "16px" }}>
           Join Our <span style={{ color: "#fbbf24" }}>Team</span>

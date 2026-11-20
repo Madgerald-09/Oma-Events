@@ -12,6 +12,15 @@
 }
 
 .talent-site {
+  --oma-ink: #f5f2e9;
+  --oma-muted: #bbb5a8;
+  --oma-green: #e2b94b;
+  --oma-green-dark: #f0ca66;
+  --oma-green-pale: #2a2416;
+  --oma-paper: #090909;
+  --oma-line: #383329;
+  --oma-white: #171717;
+  --oma-surface: #151515;
   min-height: 100vh;
   overflow: clip;
   background: var(--oma-paper);
@@ -56,7 +65,7 @@
   position: relative;
   z-index: 20;
   background: var(--oma-paper);
-  border-bottom: 1px solid rgba(31, 51, 40, 0.08);
+  border-bottom: 1px solid var(--oma-line);
 }
 
 .talent-nav-wrap {
@@ -111,7 +120,7 @@
 
 .talent-nav a,
 .talent-signin {
-  color: #46564c;
+  color: var(--oma-ink);
   font-size: 13px;
   font-weight: 600;
   text-decoration: none;
@@ -138,6 +147,22 @@
 .talent-mobile-account,
 .talent-menu-toggle {
   display: none !important;
+}
+
+.talent-theme-toggle {
+  min-height: 38px;
+  color: var(--oma-ink);
+  border-color: var(--oma-line);
+  background: var(--oma-surface);
+}
+
+.talent-theme-toggle:hover {
+  border-color: var(--oma-green);
+  background: var(--oma-green-pale);
+}
+
+.talent-mobile-theme-toggle {
+  display: none;
 }
 
 .talent-button {
@@ -225,7 +250,7 @@
 .talent-hero {
   position: relative;
   padding: 66px 0 70px;
-  background: #f3f3eb;
+  background: var(--oma-paper);
 }
 
 .talent-hero-glow {
@@ -274,7 +299,7 @@
 .talent-hero-copy > p {
   max-width: 480px;
   margin: 20px 0 29px;
-  color: #65746a;
+  color: var(--oma-muted);
   font-size: 16px;
   line-height: 1.8;
 }
@@ -474,8 +499,8 @@
 
 .talent-vibe-section {
   padding: 40px 0;
-  border-bottom: 1px solid #e8e9e3;
-  background: #fff;
+  border-bottom: 1px solid var(--oma-line);
+  background: var(--oma-paper);
 }
 
 .talent-vibe-layout {
@@ -516,10 +541,10 @@
   display: flex;
   align-items: center;
   gap: 9px;
-  border: 1px solid #e2e8e0;
+  border: 1px solid var(--oma-line);
   border-radius: 7px;
-  color: #43564a;
-  background: #fbfaf6;
+  color: var(--oma-ink);
+  background: var(--oma-surface);
   font: inherit;
   font-size: 12px;
   font-weight: 600;
@@ -675,7 +700,7 @@
 }
 
 .talent-featured-section {
-  background: #f2f3ed;
+  background: var(--oma-surface);
 }
 
 .talent-featured-grid {
@@ -687,9 +712,9 @@
 .talent-card {
   min-width: 0;
   overflow: hidden;
-  border: 1px solid #e8e9e3;
+  border: 1px solid var(--oma-line);
   border-radius: 7px;
-  background: #fff;
+  background: var(--oma-paper);
   transition: transform 180ms ease, box-shadow 180ms ease;
 }
 
@@ -771,7 +796,7 @@
   display: flex;
   justify-content: space-between;
   gap: 10px;
-  color: #6b796e;
+  color: var(--oma-muted);
   font-size: 10px;
   font-weight: 600;
 }
@@ -816,7 +841,7 @@
 .talent-card-description {
   min-height: 38px;
   margin: 13px 0 16px;
-  color: #647168;
+  color: var(--oma-muted);
   font-size: 11px;
   line-height: 1.7;
 }
@@ -827,7 +852,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-top: 1px solid #eef0ea;
+  border-top: 1px solid var(--oma-line);
 }
 
 .talent-card-price {
@@ -836,7 +861,7 @@
 }
 
 .talent-card-price strong {
-  color: #25372d;
+  color: var(--oma-ink);
   font-size: 12px;
 }
 
@@ -852,8 +877,8 @@
 
 .talent-how-section {
   padding: 98px 0;
-  color: #f7f7f1;
-  background: #1d2b24;
+  color: var(--oma-ink);
+  background: #000;
 }
 
 .talent-how-section > .talent-container {
@@ -864,7 +889,7 @@
 }
 
 .talent-how-intro .talent-eyebrow {
-  color: #b1ca9b;
+  color: var(--oma-green);
 }
 
 .talent-how-intro h2 {
@@ -876,7 +901,7 @@
 }
 
 .talent-how-intro h2 span {
-  color: #a7c290;
+  color: var(--oma-green);
 }
 
 .talent-how-intro p {
@@ -936,7 +961,7 @@
 .talent-testimonial-section {
   padding: 78px 0;
   text-align: center;
-  background: #f2f3ed;
+  background: var(--oma-paper);
 }
 
 .talent-testimonial {
@@ -957,7 +982,7 @@
 
 .talent-testimonial > p {
   margin: 0;
-  color: #718076;
+  color: var(--oma-muted);
   font-size: 10px;
 }
 
@@ -965,7 +990,7 @@
   position: absolute;
   top: -60px;
   left: 0;
-  color: rgba(23, 108, 74, 0.08);
+  color: rgba(226, 185, 75, 0.1);
   font-family: Georgia, serif;
   font-size: 170px;
   line-height: 1;
@@ -973,7 +998,8 @@
 
 .talent-final-cta {
   padding: 63px 0;
-  background: #dce8d9;
+  color: var(--oma-ink);
+  background: #17130a;
 }
 
 .talent-final-cta-inner {
@@ -984,7 +1010,7 @@
 }
 
 .talent-final-cta .talent-eyebrow {
-  color: #416749;
+  color: var(--oma-green);
 }
 
 .talent-final-cta h2 {
@@ -1006,13 +1032,13 @@
 }
 
 .talent-final-cta-actions .talent-text-link {
-  color: #355e3f;
+  color: var(--oma-green);
 }
 
 .talent-footer {
   padding: 57px 32px 0;
-  color: #e9eee9;
-  background: #17231e;
+  color: var(--oma-ink);
+  background: #000;
 }
 
 .talent-footer-main {
@@ -1044,7 +1070,7 @@
 .talent-footer-brand > p {
   max-width: 255px;
   margin: 15px 0 0;
-  color: #9eaaa0;
+  color: var(--oma-muted);
   font-size: 11px;
   line-height: 1.8;
 }
@@ -1058,19 +1084,19 @@
 
 .talent-footer-column h2 {
   margin: 2px 0 7px;
-  color: #fff;
+  color: var(--oma-ink);
   font-size: 12px;
 }
 
 .talent-footer-column a,
 .talent-footer-bottom {
-  color: #a6b0a7;
+  color: var(--oma-muted);
   font-size: 10px;
   text-decoration: none;
 }
 
 .talent-footer-column a:hover {
-  color: #d4e5cb;
+  color: var(--oma-green);
 }
 
 .talent-footer-cta {
@@ -1080,13 +1106,13 @@
 }
 
 .talent-footer-cta .talent-eyebrow {
-  color: #afc698;
+  color: var(--oma-green);
   font-size: 8px;
 }
 
 .talent-footer-cta p {
   margin: 9px 0 13px;
-  color: #fff;
+  color: var(--oma-ink);
   font-family: "Manrope", sans-serif;
   font-size: 15px;
   font-weight: 600;
@@ -1097,7 +1123,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  color: #c0d4ae;
+  color: var(--oma-green);
   font-size: 10px;
   font-weight: 700;
   text-decoration: none;
@@ -1125,8 +1151,8 @@
   gap: 10px;
   align-items: center;
   justify-content: space-between;
-  border-top: 1px solid rgba(22, 40, 31, 0.08);
-  background: rgba(251, 250, 246, 0.9);
+  border-top: 1px solid var(--oma-line);
+  background: color-mix(in srgb, var(--oma-paper) 92%, transparent);
   backdrop-filter: blur(12px);
 }
 
@@ -2158,6 +2184,34 @@
   }
 }
 
+@media (min-width: 761px) and (max-width: 980px) {
+  .talent-nav-wrap {
+    width: calc(100% - 40px);
+    gap: 14px;
+  }
+
+  .talent-brand-logo {
+    width: 120px;
+  }
+
+  .talent-nav {
+    gap: 13px;
+  }
+
+  .talent-nav a,
+  .talent-signin {
+    font-size: 11px;
+  }
+
+  .talent-nav-actions {
+    gap: 10px;
+  }
+
+  .talent-nav-actions .talent-signin {
+    display: none;
+  }
+}
+
 @media (max-width: 760px) {
   .talent-container {
     width: min(100% - 38px, 560px);
@@ -2178,6 +2232,18 @@
   }
 
   .talent-nav-actions {
+    display: none;
+  }
+
+  .talent-mobile-theme-toggle {
+    display: inline-flex;
+    width: 39px;
+    height: 39px;
+    min-height: 39px;
+    padding: 0;
+  }
+
+  .talent-mobile-theme-toggle span {
     display: none;
   }
 
@@ -2786,5 +2852,223 @@
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+  }
+}
+
+html[data-theme="light"] .talent-site {
+  --oma-ink: #171717;
+  --oma-muted: #68645b;
+  --oma-green: #a87508;
+  --oma-green-dark: #805604;
+  --oma-green-pale: #fbf3dd;
+  --oma-paper: #fff;
+  --oma-line: #e8dfc7;
+  --oma-white: #fff;
+  --oma-surface: #fbfaf6;
+}
+
+.talent-site .talent-hero,
+.talent-site .talent-vibe-section,
+.talent-site .talent-category-section,
+.talent-site .talent-testimonial-section {
+  color: var(--oma-ink);
+  background: var(--oma-paper);
+}
+
+.talent-site .talent-how-section {
+  color: var(--oma-ink);
+  background: #000;
+}
+
+.talent-site .talent-final-cta {
+  color: var(--oma-ink);
+  background: #17130a;
+}
+
+.talent-site .talent-footer {
+  color: var(--oma-ink);
+  background: #000;
+}
+
+.talent-site .talent-hero-floating,
+.talent-site .talent-search-panel,
+.talent-site .talent-search-select select,
+.talent-site .talent-explore-search,
+.talent-site .talent-explore-sort select,
+.talent-site .talent-view-toggle,
+.talent-site .talent-filters,
+.talent-site .talent-filter-control,
+.talent-site .talent-empty-state,
+.talent-site .talent-card,
+.talent-site .talent-booking-card,
+.talent-site .talent-booking-form-card,
+.talent-site .talent-request-summary,
+.talent-site .talent-booking-success,
+.talent-site .talent-booking-auth-gate {
+  color: var(--oma-ink);
+  border-color: var(--oma-line);
+  background: var(--oma-surface);
+}
+
+.talent-site .talent-search-input input,
+.talent-site .talent-search-select select,
+.talent-site .talent-explore-search input,
+.talent-site .talent-explore-sort select,
+.talent-site .talent-filter-control,
+.talent-site .talent-form-field > input,
+.talent-site .talent-form-field > select,
+.talent-site .talent-form-field > textarea {
+  color: var(--oma-ink);
+}
+
+.talent-site .talent-search-input input::placeholder,
+.talent-site .talent-explore-search input::placeholder {
+  color: var(--oma-muted);
+}
+
+.talent-site .talent-card-location,
+.talent-site .talent-card-description,
+.talent-site .talent-card-meta,
+.talent-site .talent-card-price,
+.talent-site .talent-profile-section > p,
+.talent-site .talent-booking-caption,
+.talent-site .talent-booking-availability,
+.talent-site .talent-booking-trust,
+.talent-site .talent-filter-label,
+.talent-site .talent-availability-toggle,
+.talent-site .talent-results-count,
+.talent-site .talent-explore-sort label,
+.talent-site .talent-form-field > span {
+  color: var(--oma-muted);
+}
+
+html[data-theme="light"] .talent-site .talent-how-section {
+  color: #171717;
+  background: #fff;
+}
+
+html[data-theme="light"] .talent-site .talent-how-section .talent-step {
+  border-color: #e8dfc7;
+}
+
+html[data-theme="light"] .talent-site .talent-final-cta {
+  background: #fbf3dd;
+}
+
+html[data-theme="light"] .talent-site .talent-footer {
+  color: #171717;
+  background: #fff;
+  border-top: 1px solid #e8dfc7;
+}
+
+html[data-theme="light"] .talent-site .talent-brand-light,
+html[data-theme="light"] .talent-site .talent-footer-column h2,
+html[data-theme="light"] .talent-site .talent-footer-cta p {
+  color: #171717;
+}
+
+html[data-theme="light"] .talent-site .talent-footer-brand > p,
+html[data-theme="light"] .talent-site .talent-footer-column a,
+html[data-theme="light"] .talent-site .talent-footer-bottom {
+  color: #68645b;
+}
+
+html[data-theme="light"] .talent-site .talent-mobile-cta-bar {
+  background: rgba(255, 255, 255, 0.94);
+}
+
+@media (max-width: 420px) {
+  .talent-site .talent-container {
+    width: calc(100% - 30px);
+  }
+
+  .talent-site .talent-nav-wrap {
+    width: calc(100% - 30px);
+    gap: 8px;
+  }
+
+  .talent-site .talent-brand-logo {
+    width: 112px;
+  }
+
+  .talent-site .talent-hero-copy h1 {
+    font-size: clamp(36px, 11vw, 46px);
+    letter-spacing: -2.5px;
+  }
+
+  .talent-site .talent-search-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .talent-site .talent-search-select,
+  .talent-site .talent-search-select:nth-of-type(3) {
+    min-height: 46px;
+    border-left: 0;
+    border-bottom: 1px solid var(--oma-line);
+  }
+
+  .talent-site .talent-search-panel .talent-button {
+    grid-column: auto;
+  }
+
+  .talent-site .talent-category-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .talent-site .talent-category-card:nth-child(n + 5) {
+    display: none;
+  }
+
+  .talent-site .talent-featured-grid .talent-card {
+    display: block;
+  }
+
+  .talent-site .talent-featured-grid .talent-card-image {
+    height: 190px;
+    min-height: 0;
+  }
+
+  .talent-site .talent-section-heading-row {
+    align-items: start;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .talent-site .talent-section-heading-row > .talent-text-link {
+    margin-top: 0;
+  }
+
+  .talent-site .talent-how-intro h2 {
+    font-size: 32px;
+    letter-spacing: -1.5px;
+  }
+
+  .talent-site .talent-final-cta-inner,
+  .talent-site .talent-final-cta-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .talent-site .talent-final-cta-actions {
+    gap: 13px;
+  }
+
+  .talent-site .talent-footer {
+    padding-inline: 15px;
+  }
+
+  .talent-site .talent-footer-main {
+    grid-template-columns: 1fr 1fr;
+    gap: 28px 18px;
+  }
+}
+
+@media (max-width: 360px) {
+  .talent-site .theme-toggle span {
+    display: none;
+  }
+
+  .talent-site .talent-mobile-theme-toggle {
+    width: 39px;
   }
 }

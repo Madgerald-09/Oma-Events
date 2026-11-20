@@ -10,11 +10,23 @@ import {
   doc,
   serverTimestamp,
 } from "firebase/firestore";
-import { Users, UserPlus, Trash2, CheckCircle, XCircle, Edit3, Search } from "lucide-react";
+import { Users, UserPlus, Trash2, CheckCircle, XCircle, Edit3, Search, Calendar, Plus } from "lucide-react";
 import DashboardLayout from "../../components/layout/DashboardLayout";
 import { auth, db } from "../../firebase/firebase";
+import { Link } from "react-router-dom";
+import "./GuestManagement.css";
 
 const rsvpOptions = ["invited", "confirmed", "declined", "pending"];
+
+const createEmptyGuestForm = () => ({
+  name: "",
+  email: "",
+  phone: "",
+  group: "General",
+  rsvp: "invited",
+  plusOne: false,
+  notes: "",
+});
 
 export default function GuestManagement() {
   const [events, setEvents] = useState([]);
@@ -23,15 +35,13 @@ export default function GuestManagement() {
   const [search, setSearch] = useState("");
   const [showAdd, setShowAdd] = useState(false);
   const [editingGuest, setEditingGuest] = useState(null);
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    group: "General",
-    rsvp: "invited",
-    plusOne: false,
-    notes: "",
-  });
+  const [form, setForm] = useState(createEmptyGuestForm);
+
+  const openAddForm = () => {
+    setEditingGuest(null);
+    setForm(createEmptyGuestForm());
+    setShowAdd(true);
+  };
 
   useEffect(() => {
     const uid = auth.currentUser?.uid;
@@ -119,8 +129,8 @@ export default function GuestManagement() {
 
   return (
     <DashboardLayout>
-      <div className="dashboard-page">
-        <div className="dashboard-topbar">
+      <div className="dashboard-page guests-page">
+        <header className="guests-page-header">
           <div className="dashboard-header">
             <div className="dashboard-badge">Guest Management</div>
             <h1>Guest List</h1>
@@ -128,123 +138,131 @@ export default function GuestManagement() {
           </div>
           {selectedEvent && (
             <button
-              onClick={() => { setShowAdd(true); setEditingGuest(null); setForm({ name: "", email: "", phone: "", group: "General", rsvp: "invited", plusOne: false, notes: "" }); }}
-              className="auth-submit"
-              style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "8px" }}
+              type="button"
+              onClick={openAddForm}
+              className="auth-submit guests-add-button"
             >
               <UserPlus size={18} /> Add Guest
             </button>
           )}
-        </div>
+        </header>
 
-        {/* Event Selector */}
         {events.length > 0 ? (
-          <select
-            value={selectedEvent || ""}
-            onChange={(e) => setSelectedEvent(e.target.value)}
-            className="auth-input"
-            style={{ maxWidth: "300px", marginBottom: "1.5rem" }}
-          >
-            {events.map((ev) => (
-              <option key={ev.id} value={ev.id}>{ev.title}</option>
-            ))}
-          </select>
+          <div className="guest-event-select-wrap">
+            <label htmlFor="guest-event-select">Event</label>
+            <select
+              id="guest-event-select"
+              value={selectedEvent || ""}
+              onChange={(e) => setSelectedEvent(e.target.value)}
+              className="auth-input guest-event-select"
+            >
+              {events.map((ev) => (
+                <option key={ev.id} value={ev.id}>{ev.title}</option>
+              ))}
+            </select>
+          </div>
         ) : (
-          <p style={{ color: "rgba(0,0,0,0.5)", textAlign: "center", padding: "2rem" }}>Create an event first to manage guests.</p>
+          <section className="guests-empty-state">
+            <span className="guests-empty-icon"><Calendar size={24} aria-hidden="true" /></span>
+            <h2>Start with an event</h2>
+            <p>Create an event before building its guest list. Your invitations and RSVP updates will live here.</p>
+            <Link to="/events" className="guests-empty-link">
+              <Plus size={17} aria-hidden="true" />
+              Create an event
+            </Link>
+          </section>
         )}
 
         {selectedEvent && (
           <>
-            {/* RSVP Stats */}
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: "10px", marginBottom: "1.5rem" }}>
+            <div className="guests-stats-grid">
               {rsvpOptions.map((r) => (
-                <div key={r} className="glass" style={{ padding: "12px", borderRadius: "10px", textAlign: "center" }}>
-                  <p style={{ color: "rgba(0,0,0,0.5)", fontSize: "0.75rem", textTransform: "capitalize" }}>{r}</p>
-                  <h3 style={{ color: "#fbbf24", fontSize: "1.5rem" }}>{rsvpCounts[r]}</h3>
+                <div key={r} className={`guest-stat-card status-${r}`}>
+                  <p>{r}</p>
+                  <h3>{rsvpCounts[r]}</h3>
                 </div>
               ))}
             </div>
 
-            {/* Groups */}
-            <div style={{ display: "flex", gap: "8px", marginBottom: "1rem", flexWrap: "wrap" }}>
+            <div className="guest-groups">
               {groups.map((g) => (
-                <span key={g} style={{ padding: "4px 12px", borderRadius: "20px", background: "rgba(251,191,36,0.1)", color: "#fbbf24", fontSize: "0.8rem" }}>
+                <span key={g} className="guest-group-chip">
                   {g} ({guests.filter((x) => x.group === g).length})
                 </span>
               ))}
             </div>
 
-            {/* Search */}
-            <div style={{ position: "relative", marginBottom: "1rem" }}>
-              <Search size={16} style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", color: "rgba(0,0,0,0.3)" }} />
+            <div className="guest-search-wrap">
+              <Search size={17} className="guest-search-icon" aria-hidden="true" />
               <input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search guests by name, email, or group..."
                 className="auth-input"
-                style={{ paddingLeft: "36px" }}
+                aria-label="Search guests by name, email, or group"
               />
             </div>
 
-            {/* Guest Table */}
             {filtered.length === 0 ? (
-              <div style={{ textAlign: "center", padding: "3rem", color: "rgba(0,0,0,0.3)" }}>
-                <Users size={48} style={{ marginBottom: "1rem", opacity: 0.3 }} />
-                <p>No guests yet. Add your first guest!</p>
+              <div className="guest-list-empty">
+                <span className="guest-list-empty-icon"><Users size={23} aria-hidden="true" /></span>
+                <div>
+                  <h2>{search ? "No guests match that search" : "No guests added yet"}</h2>
+                  <p>{search ? "Try a different name, email, or group." : "Add your first guest to start tracking invitations and RSVPs."}</p>
+                </div>
+                {!search && (
+                  <button type="button" className="guest-list-empty-action" onClick={openAddForm}>
+                    <UserPlus size={16} aria-hidden="true" />
+                    Add guest
+                  </button>
+                )}
               </div>
             ) : (
-              <div style={{ overflowX: "auto" }}>
-                <table style={{ width: "100%", borderCollapse: "collapse", color: "#000" }}>
+              <div className="guests-table-wrap">
+                <table className="guests-table">
                   <thead>
-                    <tr style={{ borderBottom: "1px solid rgba(0,0,0,0.1)" }}>
-                      <th style={{ textAlign: "left", padding: "10px", color: "rgba(0,0,0,0.5)", fontSize: "0.8rem" }}>Name</th>
-                      <th style={{ textAlign: "left", padding: "10px", color: "rgba(0,0,0,0.5)", fontSize: "0.8rem" }}>Email</th>
-                      <th style={{ textAlign: "left", padding: "10px", color: "rgba(0,0,0,0.5)", fontSize: "0.8rem" }}>Phone</th>
-                      <th style={{ textAlign: "left", padding: "10px", color: "rgba(0,0,0,0.5)", fontSize: "0.8rem" }}>Group</th>
-                      <th style={{ textAlign: "left", padding: "10px", color: "rgba(0,0,0,0.5)", fontSize: "0.8rem" }}>RSVP</th>
-                      <th style={{ textAlign: "left", padding: "10px", color: "rgba(0,0,0,0.5)", fontSize: "0.8rem" }}>+1</th>
-                      <th style={{ textAlign: "right", padding: "10px", color: "rgba(0,0,0,0.5)", fontSize: "0.8rem" }}>Actions</th>
+                    <tr>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Phone</th>
+                      <th>Group</th>
+                      <th>RSVP</th>
+                      <th>+1</th>
+                      <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
                     {filtered.map((guest) => (
-                      <tr key={guest.id} style={{ borderBottom: "1px solid rgba(0,0,0,0.05)" }}>
-                        <td style={{ padding: "10px", fontSize: "0.9rem" }}>{guest.name}</td>
-                        <td style={{ padding: "10px", fontSize: "0.85rem", color: "rgba(0,0,0,0.5)" }}>{guest.email || "—"}</td>
-                        <td style={{ padding: "10px", fontSize: "0.85rem", color: "rgba(0,0,0,0.5)" }}>{guest.phone || "—"}</td>
-                        <td style={{ padding: "10px" }}>
-                          <span style={{ padding: "2px 8px", borderRadius: "10px", background: "rgba(251,191,36,0.1)", color: "#fbbf24", fontSize: "0.75rem" }}>
-                            {guest.group}
+                      <tr key={guest.id}>
+                        <td data-label="Name" className="guest-name-cell">{guest.name}</td>
+                        <td data-label="Email">{guest.email || "—"}</td>
+                        <td data-label="Phone">{guest.phone || "—"}</td>
+                        <td data-label="Group">
+                          <span className="guest-group-tag">
+                            {guest.group || "General"}
                           </span>
                         </td>
-                        <td style={{ padding: "10px" }}>
+                        <td data-label="RSVP">
                           <select
-                            value={guest.rsvp}
+                            className={`guest-rsvp-select status-${guest.rsvp || "invited"}`}
+                            value={guest.rsvp || "invited"}
                             onChange={(e) => handleRsvpChange(guest.id, e.target.value)}
-                            style={{
-                              padding: "4px 8px",
-                              borderRadius: "6px",
-                              background: "rgba(0,0,0,0.05)",
-                              border: "1px solid rgba(0,0,0,0.15)",
-                              color: guest.rsvp === "confirmed" ? "#22c55e" : guest.rsvp === "declined" ? "#ef4444" : "#fbbf24",
-                              fontSize: "0.8rem",
-                              cursor: "pointer",
-                            }}
+                            aria-label={`RSVP status for ${guest.name}`}
                           >
                             {rsvpOptions.map((r) => (
-                              <option key={r} value={r} style={{ background: "#ffffff" }}>{r}</option>
+                              <option key={r} value={r}>{r}</option>
                             ))}
                           </select>
                         </td>
-                        <td style={{ padding: "10px", color: guest.plusOne ? "#22c55e" : "rgba(0,0,0,0.3)" }}>
+                        <td data-label="+1" className={guest.plusOne ? "guest-plus-one yes" : "guest-plus-one"}>
                           {guest.plusOne ? <CheckCircle size={16} /> : <XCircle size={16} />}
                         </td>
-                        <td style={{ padding: "10px", textAlign: "right" }}>
-                          <div style={{ display: "flex", gap: "4px", justifyContent: "flex-end" }}>
-                            <button onClick={() => handleEdit(guest)} style={{ padding: "4px", borderRadius: "4px", background: "rgba(251,191,36,0.15)", border: "none", color: "#fbbf24", cursor: "pointer" }}>
+                        <td data-label="Actions" className="guest-actions-cell">
+                          <div className="guest-row-actions">
+                            <button type="button" className="guest-row-action edit" onClick={() => handleEdit(guest)} aria-label={`Edit ${guest.name}`}>
                               <Edit3 size={14} />
                             </button>
-                            <button onClick={() => handleDelete(guest.id)} style={{ padding: "4px", borderRadius: "4px", background: "rgba(239,68,68,0.15)", border: "none", color: "#ef4444", cursor: "pointer" }}>
+                            <button type="button" className="guest-row-action delete" onClick={() => handleDelete(guest.id)} aria-label={`Remove ${guest.name}`}>
                               <Trash2 size={14} />
                             </button>
                           </div>
@@ -258,34 +276,33 @@ export default function GuestManagement() {
           </>
         )}
 
-        {/* Add/Edit Modal */}
         {showAdd && (
-          <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.7)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 1000, padding: "1rem" }}>
-            <form onSubmit={handleSubmit} className="glass" style={{ padding: "2rem", borderRadius: "16px", width: "100%", maxWidth: "450px" }}>
-              <h3 style={{ color: "#fbbf24", marginBottom: "1rem" }}>{editingGuest ? "Edit Guest" : "Add Guest"}</h3>
-              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+          <div className="guest-modal-backdrop">
+            <form onSubmit={handleSubmit} className="glass guest-modal" role="dialog" aria-modal="true" aria-labelledby="guest-modal-title">
+              <h2 id="guest-modal-title">{editingGuest ? "Edit Guest" : "Add Guest"}</h2>
+              <div className="guest-modal-fields">
                 <input className="auth-input" placeholder="Full Name *" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required />
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
+                <div className="guest-form-row">
                   <input className="auth-input" type="email" placeholder="Email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
                   <input className="auth-input" type="tel" placeholder="Phone" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
                 </div>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
+                <div className="guest-form-row">
                   <input className="auth-input" placeholder="Group (e.g. Family, VIP)" value={form.group} onChange={(e) => setForm({ ...form, group: e.target.value })} />
                   <select className="auth-input" value={form.rsvp} onChange={(e) => setForm({ ...form, rsvp: e.target.value })}>
                     {rsvpOptions.map((r) => (
-                      <option key={r} value={r} style={{ background: "#ffffff" }}>{r}</option>
+                      <option key={r} value={r}>{r}</option>
                     ))}
                   </select>
                 </div>
-                <label style={{ display: "flex", alignItems: "center", gap: "8px", color: "#000", fontSize: "0.9rem" }}>
-                  <input type="checkbox" checked={form.plusOne} onChange={(e) => setForm({ ...form, plusOne: e.target.checked })} style={{ accentColor: "#fbbf24" }} />
+                <label className="guest-plus-one-field">
+                  <input type="checkbox" checked={form.plusOne} onChange={(e) => setForm({ ...form, plusOne: e.target.checked })} />
                   Allow +1
                 </label>
                 <textarea className="auth-input auth-textarea" placeholder="Notes (dietary, seating, etc.)" value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} rows="2" />
               </div>
-              <div style={{ display: "flex", gap: "10px", marginTop: "1rem" }}>
-                <button type="submit" className="auth-submit" style={{ flex: 1 }}>{editingGuest ? "Update" : "Add Guest"}</button>
-                <button type="button" onClick={() => { setShowAdd(false); setEditingGuest(null); }} style={{ flex: 1, padding: "10px", borderRadius: "8px", background: "rgba(0,0,0,0.1)", color: "#000", border: "none", cursor: "pointer" }}>Cancel</button>
+              <div className="guest-modal-actions">
+                <button type="submit" className="auth-submit">{editingGuest ? "Update" : "Add Guest"}</button>
+                <button type="button" className="guest-modal-cancel" onClick={() => { setShowAdd(false); setEditingGuest(null); }}>Cancel</button>
               </div>
             </form>
           </div>

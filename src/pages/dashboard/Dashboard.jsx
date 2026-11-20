@@ -1,6 +1,6 @@
 import { signOut } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
-import { Loader, LogOut, Home } from "lucide-react";
+import { Loader, LogOut, Plus } from "lucide-react";
 
 import { auth } from "../../firebase/firebase";
 import DashboardLayout from "../../components/layout/DashboardLayout";
@@ -59,9 +59,9 @@ export default function Dashboard() {
             <p>Here's what's happening in your event business today.</p>
           </div>
           <div className="header-actions">
-            <Link to="/" className="header-btn btn-secondary">
-              <Home size={18} />
-              Back Home
+            <Link to="/events" className="header-btn btn-secondary">
+              <Plus size={18} />
+              Create Event
             </Link>
             <button onClick={handleLogout} className="header-btn btn-primary">
               <LogOut size={18} />

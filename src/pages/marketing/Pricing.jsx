@@ -40,7 +40,7 @@ const addOns = [
 
 export default function Pricing() {
   return (
-    <div style={{ background: "#000", color: "#000", minHeight: "100vh" }}>
+    <div className="legacy-marketing-page" style={{ background: "#000", color: "#000", minHeight: "100vh" }}>
       {/* Hero */}
       <section style={{ padding: "120px 20px 60px", textAlign: "center", maxWidth: "800px", margin: "0 auto" }}>
         <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", padding: "6px 16px", borderRadius: "20px", background: "rgba(251,191,36,0.1)", border: "1px solid rgba(251,191,36,0.2)", color: "#fbbf24", fontSize: "0.85rem", marginBottom: "24px" }}>

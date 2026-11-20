@@ -317,7 +317,7 @@
 @media (max-width: 760px) {
   .floating-oma-button {
     right: max(16px, env(safe-area-inset-right));
-    bottom: calc(78px + env(safe-area-inset-bottom));
+    bottom: calc(88px + env(safe-area-inset-bottom));
     min-width: 58px;
     min-height: 58px;
   }
@@ -334,6 +334,12 @@
 
   .floating-oma-input {
     padding-bottom: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  body:has(.dashboard-layout) .floating-oma-button {
+    display: none;
   }
 }
 

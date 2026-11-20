@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import ThemeToggle from "../ui/ThemeToggle";
 
 const links = [
   { label: "Explore talent", to: "/explore" },
@@ -19,7 +20,7 @@ export function TalentHeader() {
     <header className="talent-header">
       <div className="talent-nav-wrap">
         <Link className="talent-brand" to="/" aria-label="Oma home">
-          <img className="talent-brand-logo" src="/oma-logo.jpeg" alt="OMA Events logo" />
+          <img className="talent-brand-logo" src="/oma-logo.png" alt="OMA Events logo" />
         </Link>
         <nav id="talent-primary-nav" className={`talent-nav ${menuOpen ? "is-open" : ""}`} aria-label="Main navigation">
           {links.map((link) => (
@@ -30,11 +31,13 @@ export function TalentHeader() {
           </Link>
         </nav>
         <div className="talent-nav-actions">
+          <ThemeToggle className="talent-theme-toggle" />
           <Link className="talent-signin" to={accountLink}>{user ? "My account" : "Sign in"}</Link>
           <Link className="talent-button talent-button-dark talent-nav-cta" to={user ? accountLink : "/signup"}>
             {user ? "Dashboard" : "Get started"} <ArrowUpRight size={16} />
           </Link>
         </div>
+        <ThemeToggle className="talent-theme-toggle talent-mobile-theme-toggle" />
         <button
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
@@ -56,7 +59,7 @@ export function TalentFooter() {
       <div className="talent-footer-main">
         <div className="talent-footer-brand">
           <Link className="talent-brand talent-brand-light" to="/">
-            <img className="talent-brand-logo" src="/oma-logo.jpeg" alt="OMA Events logo" />
+            <img className="talent-brand-logo" src="/oma-logo.png" alt="OMA Events logo" />
           </Link>
           <p>Good people. Great performances. Unforgettable gatherings — from hybrid launches to weddings and everything in between.</p>
         </div>

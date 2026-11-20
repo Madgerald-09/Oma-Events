@@ -11,7 +11,7 @@ const posts = [
 
 export default function Blog() {
   return (
-    <div style={{ background: "#000", color: "#000", minHeight: "100vh" }}>
+    <div className="legacy-marketing-page" style={{ background: "#000", color: "#000", minHeight: "100vh" }}>
       <section style={{ padding: "120px 20px 60px", maxWidth: "1000px", margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: "60px" }}>
           <h1 style={{ fontSize: "3rem", fontWeight: 800, marginBottom: "16px" }}>
