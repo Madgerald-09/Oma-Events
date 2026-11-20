@@ -1,11 +1,7 @@
-import ThemeToggle from "../ui/ThemeToggle";
-
 const AuthLayout = ({ children }) => {
 
   return (
     <div className="auth-layout">
-      <ThemeToggle className="auth-theme-toggle" />
-
       {/* LEFT */}
 
       <div className="auth-layout-copy">

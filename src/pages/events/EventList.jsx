@@ -19,9 +19,9 @@ import "./EventList.css";
 
 const statusColors = {
   planning: "#fbbf24",
-  "in-progress": "#3b82f6",
-  completed: "#22c55e",
-  cancelled: "#ef4444",
+  "in-progress": "#fbbf24",
+  completed: "#fbbf24",
+  cancelled: "#fbbf24",
 };
 
 const statusIcons = {

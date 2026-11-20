@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Signup from "./pages/auth/Signup";
 import Login from "./pages/auth/Login";
 import ForgotPassword from "./pages/auth/ForgotPassword";
@@ -41,13 +41,10 @@ import Venues from "./pages/venues";
 import Clients from "./pages/clients";
 import Enterprise from "./pages/enterprise";
 import FloatingOmaAi from "./components/ui/FloatingOmaAi";
-import ThemeToggle from "./components/ui/ThemeToggle";
 
 function App() {
   const { onboardingCompleted, user } = useAuth();
-  const { pathname } = useLocation();
   const authenticatedHome = user && !onboardingCompleted ? "/onboarding" : "/dashboard";
-  const standaloneMarketingPages = ["/about", "/pricing", "/contact", "/faqs", "/blog", "/careers"];
 
   return (
     <>
@@ -97,9 +94,6 @@ function App() {
 
         <Route path="*" element={<Navigate to={user ? authenticatedHome : "/"} replace />} />
       </Routes>
-      {standaloneMarketingPages.includes(pathname) && (
-        <ThemeToggle className="standalone-theme-toggle" />
-      )}
       <FloatingOmaAi />
     </>
   );

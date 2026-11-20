@@ -259,18 +259,18 @@
 }
 
 .event-action-button.duplicate {
-  color: #2563eb;
-  background: rgba(59, 130, 246, 0.12);
+  color: #a16207;
+  background: rgba(251, 191, 36, 0.12);
 }
 
 .event-action-button.checklist {
-  color: #15803d;
-  background: rgba(34, 197, 94, 0.12);
+  color: #a16207;
+  background: rgba(251, 191, 36, 0.12);
 }
 
 .event-action-button.delete {
-  color: #dc2626;
-  background: rgba(239, 68, 68, 0.1);
+  color: #a16207;
+  background: rgba(251, 191, 36, 0.12);
 }
 
 .event-checklist-panel {

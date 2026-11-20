@@ -155,11 +155,11 @@
 }
 
 .guest-stat-card.status-confirmed h3 {
-  color: #15803d;
+  color: #a16207;
 }
 
 .guest-stat-card.status-declined h3 {
-  color: #dc2626;
+  color: #a16207;
 }
 
 .guest-groups {
@@ -286,11 +286,11 @@
 }
 
 .guest-rsvp-select.status-confirmed {
-  color: #15803d;
+  color: #a16207;
 }
 
 .guest-rsvp-select.status-declined {
-  color: #dc2626;
+  color: #a16207;
 }
 
 .guest-rsvp-select.status-invited,
@@ -303,7 +303,7 @@
 }
 
 .guest-plus-one.yes {
-  color: #16a34a !important;
+  color: #a16207 !important;
 }
 
 .guest-actions-cell {
@@ -332,8 +332,8 @@
 }
 
 .guest-row-action.delete {
-  color: #dc2626;
-  background: rgba(239, 68, 68, 0.1);
+  color: #a16207;
+  background: rgba(251, 191, 36, 0.12);
 }
 
 .guest-modal-backdrop {
@@ -460,11 +460,11 @@ html[data-theme="dark"] .guest-stat-card h3 {
 }
 
 html[data-theme="dark"] .guest-stat-card.status-confirmed h3 {
-  color: #4ade80;
+  color: #fbbf24;
 }
 
 html[data-theme="dark"] .guest-stat-card.status-declined h3 {
-  color: #f87171;
+  color: #fbbf24;
 }
 
 html[data-theme="dark"] .guest-group-chip,
@@ -509,11 +509,11 @@ html[data-theme="dark"] .guest-rsvp-select {
 }
 
 html[data-theme="dark"] .guest-rsvp-select.status-confirmed {
-  color: #4ade80 !important;
+  color: #fbbf24 !important;
 }
 
 html[data-theme="dark"] .guest-rsvp-select.status-declined {
-  color: #f87171 !important;
+  color: #fbbf24 !important;
 }
 
 html[data-theme="dark"] .guest-rsvp-select.status-invited,
@@ -526,7 +526,7 @@ html[data-theme="dark"] .guest-plus-one {
 }
 
 html[data-theme="dark"] .guest-plus-one.yes {
-  color: #4ade80 !important;
+  color: #fbbf24 !important;
 }
 
 html[data-theme="dark"] .guest-modal h2 {

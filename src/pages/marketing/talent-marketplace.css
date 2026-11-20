@@ -149,22 +149,6 @@
   display: none !important;
 }
 
-.talent-theme-toggle {
-  min-height: 38px;
-  color: var(--oma-ink);
-  border-color: var(--oma-line);
-  background: var(--oma-surface);
-}
-
-.talent-theme-toggle:hover {
-  border-color: var(--oma-green);
-  background: var(--oma-green-pale);
-}
-
-.talent-mobile-theme-toggle {
-  display: none;
-}
-
 .talent-button {
   min-height: 49px;
   padding: 0 21px;
@@ -2235,18 +2219,6 @@
     display: none;
   }
 
-  .talent-mobile-theme-toggle {
-    display: inline-flex;
-    width: 39px;
-    height: 39px;
-    min-height: 39px;
-    padding: 0;
-  }
-
-  .talent-mobile-theme-toggle span {
-    display: none;
-  }
-
   .talent-menu-toggle {
     width: 39px;
     height: 39px;
@@ -2855,18 +2827,6 @@
   }
 }
 
-html[data-theme="light"] .talent-site {
-  --oma-ink: #171717;
-  --oma-muted: #68645b;
-  --oma-green: #a87508;
-  --oma-green-dark: #805604;
-  --oma-green-pale: #fbf3dd;
-  --oma-paper: #fff;
-  --oma-line: #e8dfc7;
-  --oma-white: #fff;
-  --oma-surface: #fbfaf6;
-}
-
 .talent-site .talent-hero,
 .talent-site .talent-vibe-section,
 .talent-site .talent-category-section,
@@ -2940,41 +2900,6 @@ html[data-theme="light"] .talent-site {
 .talent-site .talent-explore-sort label,
 .talent-site .talent-form-field > span {
   color: var(--oma-muted);
-}
-
-html[data-theme="light"] .talent-site .talent-how-section {
-  color: #171717;
-  background: #fff;
-}
-
-html[data-theme="light"] .talent-site .talent-how-section .talent-step {
-  border-color: #e8dfc7;
-}
-
-html[data-theme="light"] .talent-site .talent-final-cta {
-  background: #fbf3dd;
-}
-
-html[data-theme="light"] .talent-site .talent-footer {
-  color: #171717;
-  background: #fff;
-  border-top: 1px solid #e8dfc7;
-}
-
-html[data-theme="light"] .talent-site .talent-brand-light,
-html[data-theme="light"] .talent-site .talent-footer-column h2,
-html[data-theme="light"] .talent-site .talent-footer-cta p {
-  color: #171717;
-}
-
-html[data-theme="light"] .talent-site .talent-footer-brand > p,
-html[data-theme="light"] .talent-site .talent-footer-column a,
-html[data-theme="light"] .talent-site .talent-footer-bottom {
-  color: #68645b;
-}
-
-html[data-theme="light"] .talent-site .talent-mobile-cta-bar {
-  background: rgba(255, 255, 255, 0.94);
 }
 
 @media (max-width: 420px) {
@@ -3060,15 +2985,5 @@ html[data-theme="light"] .talent-site .talent-mobile-cta-bar {
   .talent-site .talent-footer-main {
     grid-template-columns: 1fr 1fr;
     gap: 28px 18px;
-  }
-}
-
-@media (max-width: 360px) {
-  .talent-site .theme-toggle span {
-    display: none;
-  }
-
-  .talent-site .talent-mobile-theme-toggle {
-    width: 39px;
   }
 }

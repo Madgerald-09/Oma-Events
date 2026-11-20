@@ -23,7 +23,6 @@ import {
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import ThemeToggle from "../ui/ThemeToggle";
 
 export default function Sidebar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -95,7 +94,6 @@ export default function Sidebar() {
       <header className="dashboard-mobile-topbar">
         <NavLink to={homePath} className="dashboard-mobile-brand">OMA</NavLink>
         <div className="dashboard-mobile-tools">
-          <ThemeToggle className="mobile-dashboard-theme-toggle" />
           <button
             className="dashboard-mobile-menu-button"
             type="button"
@@ -132,8 +130,6 @@ export default function Sidebar() {
             <X size={19} />
           </button>
         </div>
-        <ThemeToggle className="sidebar-theme-toggle" />
-
         <div className="sidebar-links">
           {renderLinkGroup(mainLinks)}
 

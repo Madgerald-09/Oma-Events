@@ -7,7 +7,6 @@ import {
   Crown,
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
-import ThemeToggle from "../ui/ThemeToggle";
 
 const navLinks = [
   { id: "planners", label: "Planners", href: "/planners" },
@@ -69,7 +68,6 @@ export default function Navbar() {
               Dashboard
             </Link>
           )}
-          <ThemeToggle />
           <Link to={startLink} className="nav-cta">
             <Sparkles size={14} style={{ marginRight: "6px" }} />
             {user ? "Go to App" : "Get Started"}
@@ -98,7 +96,6 @@ export default function Navbar() {
             Dashboard
           </Link>
         )}
-        <ThemeToggle />
         <Link to={startLink} className="mobile-cta" onClick={() => setIsOpen(false)}>
           {user ? "Go to App" : "Get Started"}
         </Link>

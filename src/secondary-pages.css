@@ -706,17 +706,6 @@ html[data-theme="dark"] .planner-page .planner-badge {
   }
 }
 
-html[data-theme="light"] .planner-page,
-html[data-theme="light"] .planner-page .planner-hero,
-html[data-theme="light"] .planner-page .section {
-  color: #000;
-  background: #fff;
-}
-
-html[data-theme="light"] .planner-page .split-section {
-  background: #fffbeb;
-}
-
 @media (max-width: 640px) {
   .planner-hero-grid,
   .planner-metrics {

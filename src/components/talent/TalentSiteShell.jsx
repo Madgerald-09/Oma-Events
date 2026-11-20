@@ -2,7 +2,6 @@ import { useState } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import ThemeToggle from "../ui/ThemeToggle";
 
 const links = [
   { label: "Explore talent", to: "/explore" },
@@ -31,13 +30,11 @@ export function TalentHeader() {
           </Link>
         </nav>
         <div className="talent-nav-actions">
-          <ThemeToggle className="talent-theme-toggle" />
           <Link className="talent-signin" to={accountLink}>{user ? "My account" : "Sign in"}</Link>
           <Link className="talent-button talent-button-dark talent-nav-cta" to={user ? accountLink : "/signup"}>
             {user ? "Dashboard" : "Get started"} <ArrowUpRight size={16} />
           </Link>
         </div>
-        <ThemeToggle className="talent-theme-toggle talent-mobile-theme-toggle" />
         <button
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
