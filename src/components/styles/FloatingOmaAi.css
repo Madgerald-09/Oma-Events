@@ -13,19 +13,21 @@
   border: 1px solid rgba(251, 191, 36, 0.55);
   border-radius: 999px;
   color: #171717;
-  background: #fbbf24;
-  box-shadow: 0 10px 30px rgba(251, 191, 36, 0.2);
+  background: linear-gradient(135deg, #ffdc83, #e7bd53);
+  box-shadow: 0 12px 32px rgba(231, 189, 83, 0.28);
   font: inherit;
   font-size: 13px;
   font-weight: 700;
+  letter-spacing: 0.1px;
+  white-space: nowrap;
   cursor: pointer;
   transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease;
 }
 
 .floating-oma-button:hover {
   transform: translateY(-3px);
-  background: #f4b400;
-  box-shadow: 0 14px 34px rgba(251, 191, 36, 0.28);
+  background: linear-gradient(135deg, #ffe49f, #f3cf70);
+  box-shadow: 0 16px 38px rgba(231, 189, 83, 0.35);
 }
 
 .floating-oma-button:focus-visible,

@@ -4,9 +4,9 @@ import { getAIResponse } from "../../services/geminiAPI";
 import "../styles/FloatingOmaAi.css";
 
 const suggestedPrompts = [
-  "Help me plan an event",
-  "Find a speaker",
-  "How do I set a budget?",
+  "Help me plan a tech event",
+  "Find a tech speaker",
+  "Build an event budget",
 ];
 
 function buildPageContext() {
@@ -29,7 +29,7 @@ export default function FloatingOmaAi() {
   const [messages, setMessages] = useState([
     {
       role: "ai",
-      text: "Hey! I'm OMA, your event sidekick. I can help you find talent, plan your event, or make sense of your budget. What are you dreaming up?",
+      text: "Hey! I'm OMA AI, your event sidekick. I can help you find tech speakers and hosts, shape your event plan, or make sense of your budget. What are you working on?",
       timestamp: new Date(),
     },
   ]);
@@ -112,12 +112,12 @@ export default function FloatingOmaAi() {
         className={`floating-oma-button ${isOpen ? "open" : ""}`}
         onClick={toggleChat}
         type="button"
-        aria-label={isOpen ? "Close OMA chat" : "Chat with OMA"}
+        aria-label={isOpen ? "Close OMA AI chat" : "Chat with OMA AI"}
         aria-expanded={isOpen}
         aria-controls="floating-oma-chat"
       >
         {isOpen ? <X size={21} aria-hidden="true" /> : <MessageCircle size={21} aria-hidden="true" />}
-        <span>{isOpen ? "Close" : "Ask OMA"}</span>
+        <span>{isOpen ? "Close" : "Ask OMA AI"}</span>
       </button>
 
       {isOpen && (
@@ -129,14 +129,14 @@ export default function FloatingOmaAi() {
           <header className="floating-oma-header">
             <span className="floating-oma-avatar"><Sparkles size={18} aria-hidden="true" /></span>
             <div className="floating-oma-heading">
-              <h2 id="floating-oma-title">OMA event sidekick</h2>
-              <span>Here for your next big moment</span>
+              <h2 id="floating-oma-title">OMA AI event sidekick</h2>
+              <span>Smart support for your next big moment</span>
             </div>
             <button
               onClick={closeChat}
               className="close-button"
               type="button"
-              aria-label="Close OMA chat"
+              aria-label="Close OMA AI chat"
             >
               <X size={19} aria-hidden="true" />
             </button>
@@ -155,7 +155,7 @@ export default function FloatingOmaAi() {
               </div>
             ))}
             {messages.length === 1 && !isLoading && (
-              <div className="floating-oma-suggestions" role="group" aria-label="Try asking OMA">
+              <div className="floating-oma-suggestions" role="group" aria-label="Try asking OMA AI">
                 {suggestedPrompts.map((prompt) => (
                   <button key={prompt} type="button" onClick={() => sendMessage(prompt)}>
                     {prompt}
@@ -175,12 +175,12 @@ export default function FloatingOmaAi() {
           </div>
 
           <form className="floating-oma-input" onSubmit={handleSubmit}>
-            <label className="floating-oma-sr-only" htmlFor="floating-oma-message">Message OMA</label>
+            <label className="floating-oma-sr-only" htmlFor="floating-oma-message">Message OMA AI</label>
             <input
               ref={inputRef}
               id="floating-oma-message"
               type="text"
-              placeholder="Ask me anything about your event"
+              placeholder="Ask OMA AI about your event"
               value={input}
               onChange={(event) => setInput(event.target.value)}
               disabled={isLoading}

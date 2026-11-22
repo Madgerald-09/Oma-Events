@@ -20,6 +20,7 @@ export function TalentHeader() {
       <div className="talent-nav-wrap">
         <Link className="talent-brand" to="/" aria-label="Oma home">
           <img className="talent-brand-logo" src="/oma-logo.png" alt="OMA Events logo" />
+          <span className="talent-brand-name">OMA <span>EVENTS</span></span>
         </Link>
         <nav id="talent-primary-nav" className={`talent-nav ${menuOpen ? "is-open" : ""}`} aria-label="Main navigation">
           {links.map((link) => (
@@ -57,8 +58,9 @@ export function TalentFooter() {
         <div className="talent-footer-brand">
           <Link className="talent-brand talent-brand-light" to="/">
             <img className="talent-brand-logo" src="/oma-logo.png" alt="OMA Events logo" />
+            <span className="talent-brand-name">OMA <span>EVENTS</span></span>
           </Link>
-          <p>Good people. Great performances. Unforgettable gatherings — from hybrid launches to weddings and everything in between.</p>
+          <p>From startup meetups and hackathons to product launches and flagship conferences, Oma connects you with the people who make great tech events happen.</p>
         </div>
         <div className="talent-footer-column">
           <h2>Discover</h2>
@@ -74,13 +76,13 @@ export function TalentFooter() {
         </div>
         <div className="talent-footer-cta">
           <span className="talent-eyebrow">YOUR NEXT GREAT EVENT</span>
-          <p>Find the right talent for your next big moment.</p>
+          <p>Find the right people to bring your next big idea to life.</p>
           <Link className="talent-footer-link" to="/explore">Start exploring <ArrowUpRight size={16} /></Link>
         </div>
       </div>
       <div className="talent-footer-bottom">
-        <span>© {new Date().getFullYear()} Oma Events. Demo marketplace experience.</span>
-        <span>Made for moments that matter.</span>
+        <span>© {new Date().getFullYear()} Oma Events. Made for tech events.</span>
+        <span>Ideas meet their people.</span>
       </div>
     </footer>
   );

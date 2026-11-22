@@ -1,0 +1,894 @@
+.talent-home .talent-site {
+  --oma-ink: #f5f0e5;
+  --oma-muted: #a7a399;
+  --oma-green: #e7bd53;
+  --oma-green-dark: #f3cf70;
+  --oma-green-pale: #2a2416;
+  --oma-paper: #080808;
+  --oma-line: #302d26;
+  --oma-white: #141414;
+  --oma-surface: #10100f;
+  background: var(--oma-paper);
+  color: var(--oma-ink);
+}
+
+.talent-home .talent-brand-name {
+  display: inline-flex;
+  flex-direction: column;
+  color: #f5f0e5;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+  line-height: 1.1;
+}
+
+.talent-home .talent-brand-name span {
+  color: #e7bd53;
+  font-size: 8px;
+  letter-spacing: 3px;
+}
+
+.talent-home .talent-header {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  border-bottom-color: rgba(231, 189, 83, 0.13);
+  background: rgba(8, 8, 8, 0.76);
+  backdrop-filter: blur(14px);
+}
+
+.talent-home .talent-nav-wrap {
+  width: min(1320px, calc(100% - 64px));
+  height: 82px;
+}
+
+.talent-home .talent-brand-logo {
+  width: 52px;
+  height: 52px;
+  border: 1px solid rgba(231, 189, 83, 0.25);
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 26px rgba(231, 189, 83, 0.12);
+}
+
+.talent-home .talent-nav a,
+.talent-home .talent-signin {
+  color: #d3cec2;
+}
+
+.talent-home .talent-nav a:hover,
+.talent-home .talent-signin:hover {
+  color: var(--oma-green);
+}
+
+.talent-home .talent-nav-cta {
+  color: #111;
+  background: var(--oma-green);
+}
+
+.talent-home .talent-nav-cta:hover,
+.talent-home .talent-button-green:hover {
+  color: #111;
+  background: #f3cf70;
+}
+
+.talent-home .talent-button-green {
+  color: #111;
+  background: var(--oma-green);
+}
+
+.talent-home .talent-button-dark {
+  color: #111;
+  background: var(--oma-green);
+}
+
+.talent-home .talent-button-dark:hover {
+  color: #111;
+  background: #f3cf70;
+}
+
+.talent-home .talent-button-light {
+  color: #111;
+  background: #f4eddd;
+}
+
+.talent-home .talent-button-light:hover {
+  background: #fff;
+}
+
+.talent-home .talent-button-outline {
+  border-color: rgba(231, 189, 83, 0.45);
+}
+
+.talent-home .talent-button:focus-visible,
+.talent-home .talent-site a:focus-visible,
+.talent-home .talent-site button:focus-visible,
+.talent-home .talent-site input:focus-visible,
+.talent-home .talent-site select:focus-visible {
+  outline-color: rgba(231, 189, 83, 0.65);
+}
+
+.talent-home .talent-hero {
+  padding: 138px 0 84px;
+  background:
+    radial-gradient(ellipse at 76% 38%, rgba(116, 87, 30, 0.14), transparent 40%),
+    linear-gradient(rgba(231, 189, 83, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(231, 189, 83, 0.035) 1px, transparent 1px),
+    #080808;
+  background-size: auto, 62px 62px, 62px 62px, auto;
+}
+
+.talent-home .talent-hero-glow {
+  top: 60px;
+  right: 5%;
+  left: auto;
+  width: 410px;
+  height: 410px;
+  background: rgba(190, 145, 47, 0.12);
+  filter: blur(90px);
+}
+
+.talent-home .talent-hero-layout {
+  min-height: 532px;
+  grid-template-columns: minmax(0, 0.93fr) minmax(420px, 0.9fr);
+  gap: clamp(42px, 7vw, 100px);
+}
+
+.talent-home .talent-hero-copy {
+  padding-top: 20px;
+}
+
+.talent-home .talent-eyebrow {
+  color: #d9b85d;
+}
+
+.talent-home .talent-hero-copy > .talent-eyebrow {
+  width: fit-content;
+  margin-bottom: 25px;
+  padding: 9px 13px;
+  border: 1px solid rgba(231, 189, 83, 0.27);
+  border-radius: 999px;
+  background: rgba(231, 189, 83, 0.055);
+}
+
+.talent-home .talent-hero-copy h1 {
+  max-width: 650px;
+  font-size: clamp(52px, 6.1vw, 80px);
+  font-weight: 600;
+  letter-spacing: -5.2px;
+  line-height: 1.02;
+}
+
+.talent-home .talent-hero-copy h1 span,
+.talent-home .talent-vibe-copy h2 span,
+.talent-home .talent-how-intro h2 span {
+  color: var(--oma-green);
+}
+
+.talent-home .talent-hero-copy > p {
+  max-width: 500px;
+  margin: 23px 0 29px;
+  color: #aaa59a;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.talent-home .talent-search-panel {
+  min-height: 64px;
+  padding: 7px;
+  border: 1px solid rgba(231, 189, 83, 0.22);
+  border-radius: 10px;
+  background: #111110;
+  box-shadow: 0 18px 56px rgba(0, 0, 0, 0.35);
+}
+
+.talent-home .talent-search-input {
+  color: #d4bd7d;
+}
+
+.talent-home .talent-search-input input,
+.talent-home .talent-search-select select {
+  color: #f3eee1;
+  color-scheme: dark;
+}
+
+.talent-home .talent-search-input input::placeholder {
+  color: #8d887d;
+}
+
+.talent-home .talent-search-select {
+  border-left-color: #363229;
+}
+
+.talent-home .talent-search-panel .talent-button {
+  border-radius: 6px;
+}
+
+.talent-home .talent-hero-proof {
+  color: #aaa59a;
+}
+
+.talent-home .talent-hero-proof svg,
+.talent-home .talent-text-link,
+.talent-home .talent-vibe-option svg {
+  color: var(--oma-green);
+}
+
+.talent-home .talent-hero-visual {
+  height: 500px;
+  border: 1px solid rgba(231, 189, 83, 0.36);
+  border-radius: 4px 4px 86px 4px;
+  background: #1b1a17;
+  box-shadow: 0 32px 90px rgba(0, 0, 0, 0.52), 0 0 70px rgba(231, 189, 83, 0.08);
+}
+
+.talent-home .talent-hero-visual > img {
+  object-position: center;
+  filter: saturate(0.82);
+}
+
+.talent-home .talent-hero-image-shade {
+  background: linear-gradient(180deg, rgba(8, 8, 8, 0.04) 20%, rgba(8, 8, 8, 0.24) 48%, rgba(8, 8, 8, 0.9) 100%);
+}
+
+.talent-home .talent-hero-image-meta {
+  position: absolute;
+  top: 17px;
+  right: 18px;
+  left: 18px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: #f5edda;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-shadow: 0 2px 12px #000;
+}
+
+.talent-home .talent-hero-caption {
+  right: 25px;
+  bottom: 25px;
+  left: 25px;
+}
+
+.talent-home .talent-caption-dot {
+  background: var(--oma-green);
+  box-shadow: 0 0 14px rgba(231, 189, 83, 0.8);
+}
+
+.talent-home .talent-hero-caption small {
+  color: #d5c9a6;
+}
+
+.talent-home .talent-hero-floating {
+  top: 28px;
+  left: -29px;
+  border: 1px solid rgba(231, 189, 83, 0.3);
+  border-radius: 6px;
+  color: #f3eee1;
+  background: #141310;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.45);
+}
+
+.talent-home .talent-hero-floating > span {
+  color: #111;
+  background: var(--oma-green);
+}
+
+.talent-home .talent-scroll-cue {
+  color: #b7ad94;
+}
+
+.talent-home .talent-vibe-section {
+  padding: 32px 0;
+  border-top: 1px solid #25221b;
+  border-bottom-color: #25221b;
+  background: #0e0e0d;
+}
+
+.talent-home .talent-vibe-copy h2 {
+  font-size: clamp(24px, 2.8vw, 32px);
+}
+
+.talent-home .talent-vibe-copy p {
+  color: #a7a399;
+}
+
+.talent-home .talent-vibe-option {
+  border-color: #353127;
+  color: #e9e3d6;
+  background: #141412;
+}
+
+.talent-home .talent-vibe-option:hover {
+  border-color: #987b36;
+}
+
+.talent-home .talent-vibe-option.is-selected {
+  border-color: var(--oma-green);
+  color: #f2d47f;
+  background: #211c10;
+  box-shadow: inset 0 0 0 1px var(--oma-green);
+}
+
+.talent-home .talent-category-section,
+.talent-home .talent-featured-section {
+  padding: 88px 0 94px;
+  background: #080808;
+}
+
+.talent-home .talent-section-heading h2 {
+  max-width: 720px;
+  font-size: clamp(30px, 3.8vw, 46px);
+}
+
+.talent-home .talent-section-heading p {
+  color: #a7a399;
+  font-size: 13px;
+}
+
+.talent-home .talent-category-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.talent-home .talent-category-card {
+  min-height: 245px;
+  border: 1px solid rgba(231, 189, 83, 0.12);
+  background: #15140f;
+}
+
+.talent-home .talent-category-card > img {
+  filter: saturate(0.7);
+  transition: transform 350ms ease, filter 350ms ease;
+}
+
+.talent-home .talent-category-card:hover > img {
+  filter: saturate(1);
+}
+
+.talent-home .talent-category-shade {
+  background: linear-gradient(180deg, rgba(7, 7, 6, 0.08) 8%, rgba(7, 7, 6, 0.88) 100%);
+}
+
+.talent-home .talent-category-info strong {
+  font-size: 14px;
+}
+
+.talent-home .talent-category-info small {
+  color: #d4cfc3;
+  font-size: 10px;
+}
+
+.talent-home .talent-category-arrow {
+  border-color: rgba(231, 189, 83, 0.6);
+  color: var(--oma-green);
+}
+
+.talent-home .talent-featured-section {
+  background:
+    radial-gradient(ellipse at 8% 50%, rgba(123, 91, 29, 0.1), transparent 34%),
+    #10100f;
+}
+
+.talent-home .talent-format-section .talent-section-heading {
+  margin-bottom: 30px;
+}
+
+.talent-home .talent-formats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 13px;
+}
+
+.talent-home .talent-format-card {
+  min-height: 240px;
+  padding: 22px 19px 19px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #332f25;
+  border-radius: 7px;
+  color: var(--oma-ink);
+  background: linear-gradient(155deg, rgba(231, 189, 83, 0.055), transparent 46%), #141413;
+  text-decoration: none;
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.talent-home .talent-format-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(231, 189, 83, 0.65);
+  background-color: #191813;
+}
+
+.talent-home .talent-format-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--oma-green);
+}
+
+.talent-home .talent-format-topline > span {
+  color: #8c836c;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.talent-home .talent-format-card h3 {
+  margin: 26px 0 9px;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.talent-home .talent-format-card p {
+  margin: 0 0 20px;
+  color: #a7a399;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.talent-home .talent-format-link {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #e4c15f;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.talent-home .talent-approach-section {
+  padding: 88px 0 94px;
+  border-top: 1px solid #28251e;
+  border-bottom: 1px solid #28251e;
+  background:
+    radial-gradient(ellipse at 94% 4%, rgba(231, 189, 83, 0.1), transparent 34%),
+    #0b0b0a;
+}
+
+.talent-home .talent-approach-heading {
+  margin-bottom: 31px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.7fr);
+  align-items: end;
+  gap: 48px;
+}
+
+.talent-home .talent-approach-heading h2 {
+  max-width: 650px;
+  margin: 11px 0 0;
+  font-size: clamp(31px, 3.7vw, 45px);
+  font-weight: 600;
+  letter-spacing: -2px;
+  line-height: 1.15;
+}
+
+.talent-home .talent-approach-heading > p {
+  margin: 0 0 4px;
+  color: #aaa59a;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.talent-home .talent-approach-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 13px;
+}
+
+.talent-home .talent-approach-card {
+  min-height: 222px;
+  padding: 22px 21px;
+  border: 1px solid #302d26;
+  border-radius: 7px;
+  background: linear-gradient(145deg, rgba(231, 189, 83, 0.045), transparent 58%), #111110;
+}
+
+.talent-home .talent-approach-index {
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #99917b;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+}
+
+.talent-home .talent-approach-card > svg {
+  color: var(--oma-green);
+}
+
+.talent-home .talent-approach-card h3 {
+  margin: 13px 0 7px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.talent-home .talent-approach-card p {
+  margin: 0;
+  color: #a7a399;
+  font-size: 11px;
+  line-height: 1.75;
+}
+
+.talent-home .talent-how-section {
+  padding: 92px 0;
+  color: var(--oma-ink);
+  background: #080808;
+}
+
+.talent-home .talent-how-section > .talent-container {
+  gap: 80px;
+}
+
+.talent-home .talent-how-intro h2 {
+  font-size: clamp(35px, 4vw, 49px);
+}
+
+.talent-home .talent-how-intro p,
+.talent-home .talent-step p {
+  color: #aaa59a;
+}
+
+.talent-home .talent-steps {
+  border-top-color: #302d26;
+}
+
+.talent-home .talent-step {
+  border-bottom-color: #302d26;
+}
+
+.talent-home .talent-step-number,
+.talent-home .talent-step-check {
+  color: var(--oma-green);
+}
+
+.talent-home .talent-step-check {
+  border-color: rgba(231, 189, 83, 0.55);
+}
+
+.talent-home .talent-testimonial-section {
+  padding: 77px 0;
+  background: #10100f;
+}
+
+.talent-home .talent-testimonial-mark {
+  color: rgba(231, 189, 83, 0.1);
+}
+
+.talent-home .talent-testimonial > p {
+  color: #a7a399;
+  font-size: 12px;
+}
+
+.talent-home .talent-final-cta {
+  padding: 61px 0;
+  border-top: 1px solid rgba(231, 189, 83, 0.25);
+  background:
+    radial-gradient(ellipse at 83% 40%, rgba(231, 189, 83, 0.18), transparent 38%),
+    #17140c;
+}
+
+.talent-home .talent-final-cta h2 {
+  max-width: 680px;
+}
+
+.talent-home .talent-final-cta-actions .talent-text-link {
+  color: #e9d79d;
+}
+
+.talent-home .talent-footer {
+  background: #060606;
+}
+
+.talent-home .talent-footer-brand > p,
+.talent-home .talent-footer-column a,
+.talent-home .talent-footer-bottom {
+  color: #969185;
+}
+
+.talent-home .talent-footer-cta {
+  border-color: #393329;
+}
+
+.talent-home .talent-footer-cta .talent-eyebrow {
+  color: var(--oma-green);
+}
+
+.talent-home .talent-footer-link,
+.talent-home .talent-footer-column a:hover {
+  color: #e7bd53;
+}
+
+.talent-home .talent-mobile-cta-bar {
+  border-top-color: #3a3324;
+  background: color-mix(in srgb, #080808 92%, transparent);
+}
+
+.talent-home .talent-mobile-cta-bar > a:first-child {
+  color: #eee5ce;
+}
+
+@media (max-width: 1050px) {
+  .talent-home .talent-hero-layout {
+    grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.9fr);
+    gap: 36px;
+  }
+
+  .talent-home .talent-category-grid,
+  .talent-home .talent-formats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .talent-home .talent-approach-heading {
+    gap: 28px;
+  }
+}
+
+@media (max-width: 760px) {
+  .talent-home .talent-header {
+    height: 0;
+    border: 0;
+    background: transparent;
+  }
+
+  .talent-home .talent-nav-wrap {
+    width: calc(100% - 28px);
+    height: 68px;
+    margin-inline: auto;
+  }
+
+  .talent-home .talent-brand {
+    position: absolute;
+    top: 10px;
+    left: 14px;
+    z-index: 42;
+    display: inline-flex;
+    gap: 8px;
+  }
+
+  .talent-home .talent-brand-logo {
+    width: 43px;
+    height: 43px;
+  }
+
+  .talent-home .talent-brand-name {
+    font-size: 12px;
+  }
+
+  .talent-home .talent-menu-toggle {
+    top: 10px;
+    right: 13px;
+    width: 43px;
+    height: 43px;
+  }
+
+  .talent-home .talent-nav {
+    top: 64px;
+    right: 13px;
+  }
+
+  .talent-home .talent-hero {
+    padding: 88px 0 48px;
+  }
+
+  .talent-home .talent-hero-layout {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .talent-home .talent-hero-copy > .talent-eyebrow {
+    margin-bottom: 17px;
+    padding: 7px 10px;
+    font-size: 9px;
+  }
+
+  .talent-home .talent-hero-copy h1 {
+    max-width: 520px;
+    font-size: clamp(45px, 11vw, 62px);
+    letter-spacing: -3.4px;
+  }
+
+  .talent-home .talent-hero-copy > p {
+    margin: 15px 0 19px;
+    font-size: 13px;
+  }
+
+  .talent-home .talent-search-panel {
+    border-color: rgba(231, 189, 83, 0.26);
+    background: #111110;
+  }
+
+  .talent-home .talent-search-input {
+    border-bottom-color: #363229;
+  }
+
+  .talent-home .talent-search-select {
+    border-left-color: #363229;
+  }
+
+  .talent-home .talent-hero-proof {
+    gap: 10px;
+    font-size: 9px;
+  }
+
+  .talent-home .talent-hero-visual {
+    height: 320px;
+    border-bottom-right-radius: 55px;
+  }
+
+  .talent-home .talent-hero-floating {
+    top: 15px;
+    left: 12px;
+    padding: 8px 11px 8px 8px;
+  }
+
+  .talent-home .talent-hero-image-meta {
+    top: 16px;
+    right: 12px;
+    left: auto;
+    flex-direction: column;
+    align-items: end;
+    font-size: 7px;
+  }
+
+  .talent-home .talent-hero-caption {
+    right: 15px;
+    bottom: 15px;
+    left: 15px;
+    gap: 9px;
+  }
+
+  .talent-home .talent-hero-caption strong {
+    font-size: 12px;
+  }
+
+  .talent-home .talent-vibe-section {
+    padding: 30px 0;
+  }
+
+  .talent-home .talent-vibe-layout {
+    gap: 18px;
+  }
+
+  .talent-home .talent-category-section,
+  .talent-home .talent-featured-section {
+    padding: 61px 0;
+  }
+
+  .talent-home .talent-section-heading h2 {
+    font-size: 29px;
+    letter-spacing: -1.3px;
+  }
+
+  .talent-home .talent-category-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .talent-home .talent-category-card {
+    min-height: 195px;
+  }
+
+  .talent-home .talent-category-extra:nth-child(n + 5) {
+    display: none;
+  }
+
+  .talent-home .talent-category-mobile-more {
+    display: inline-flex;
+    width: 100%;
+    margin-top: 17px;
+  }
+
+  .talent-home .talent-formats-grid {
+    gap: 10px;
+  }
+
+  .talent-home .talent-approach-section {
+    padding: 62px 0;
+  }
+
+  .talent-home .talent-approach-heading {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .talent-home .talent-approach-heading h2 {
+    font-size: 29px;
+    letter-spacing: -1.3px;
+  }
+
+  .talent-home .talent-approach-heading > p {
+    font-size: 12px;
+  }
+
+  .talent-home .talent-approach-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .talent-home .talent-approach-card {
+    min-height: 0;
+    padding: 18px;
+  }
+
+  .talent-home .talent-approach-index {
+    margin-bottom: 16px;
+  }
+
+  .talent-home .talent-format-card {
+    min-height: 230px;
+    padding: 17px 14px 15px;
+  }
+
+  .talent-home .talent-format-card h3 {
+    margin-top: 20px;
+    font-size: 15px;
+  }
+
+  .talent-home .talent-format-card p {
+    font-size: 10px;
+  }
+
+  .talent-home .talent-how-section {
+    padding: 65px 0;
+  }
+
+  .talent-home .talent-how-section > .talent-container {
+    gap: 38px;
+  }
+
+  .talent-home .talent-how-intro h2 {
+    font-size: 36px;
+    letter-spacing: -1.8px;
+  }
+
+  .talent-home .talent-testimonial-section {
+    padding: 58px 0;
+  }
+
+  .talent-home .talent-final-cta {
+    padding: 46px 0;
+  }
+
+  .talent-home .talent-final-cta-inner {
+    align-items: start;
+  }
+
+  .talent-home .talent-final-cta-actions {
+    align-items: start;
+  }
+
+  .talent-home .talent-footer {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+}
+
+@media (max-width: 420px) {
+  .talent-home .talent-category-card {
+    min-height: 178px;
+  }
+
+  .talent-home .talent-category-info {
+    right: 10px;
+    bottom: 12px;
+    left: 11px;
+  }
+
+  .talent-home .talent-category-info strong {
+    font-size: 12px;
+  }
+
+  .talent-home .talent-category-info small {
+    font-size: 9px;
+  }
+
+  .talent-home .talent-format-card {
+    min-height: 250px;
+  }
+}

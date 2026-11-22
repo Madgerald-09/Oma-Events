@@ -6,9 +6,9 @@ export const talentCategories = [
   { name: "Live Stream Hosts", image: "photo-1552664730-d307ca884978", description: "Dynamic presenters who keep digital audiences engaged in real time." },
   { name: "Panel Moderators", image: "photo-1515187029135-18ee286d815b", description: "Thoughtful moderators who bring clarity, rhythm and energy to panels." },
   { name: "Brand Ambassadors", image: "photo-1522202176988-66273c2fd55f", description: "People-first representatives for product activations and community events." },
-  { name: "Event DJs", image: "photo-1571266028243-d220c9c3b4e9", description: "Curated soundtracks that energise the room before and after the main programme." },
+  { name: "Event DJs", image: "photo-1492684223066-81342ee5ff30", description: "Curated soundtracks that energise the room before and after the main programme." },
   { name: "Community Hosts", image: "photo-1516280440614-37939bbacd81", description: "Warm, approachable hosts for meetups, workshops and networking sessions." },
-  { name: "Startup Founders", image: "photo-1559136555-3c8b8c8d5d20", description: "Founders and operators with the story, voice and credibility to lead conversations." },
+  { name: "Startup Founders", image: "photo-1521737711867-e3b97375f902", description: "Founders and operators with the story, voice and credibility to lead conversations." },
   { name: "AV & Stage Crew", image: "photo-1492684223066-81342ee5ff30", description: "Technical support that makes complex events feel seamless and premium." },
   { name: "Special Event Acts", image: "photo-1501386761578-eac5c94b800a", description: "A little entertainment for the moments that need a memorable spark." },
 ];
